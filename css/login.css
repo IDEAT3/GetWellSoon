@@ -1,0 +1,109 @@
+.logo {
+	background-image: url("../images/logo.jpg");
+	font-family: 'Open Sans', sans-serif;
+	position: absolute;
+	left: 372px;
+	top: 200px;
+	width: 731px;
+	height: 154px;
+	z-index: 8;
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.login-form {
+	background: url("../images/bgf.png") no-repeat 100% 0%;
+	background-size: 100%;
+	width: 325px;
+	margin: auto;
+	float: bottom right;
+	position: absolute;
+	left: 1003px;
+	top: 270px;
+	height: 352px;
+}
+.login-form h1{
+	text-align: left;
+	color: #fff;
+	font-size: medium;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	position: absolute;
+	top: 7%;
+	left: 11%;
+	margin: 34px 0;
+} 
+
+form {
+	padding:32% 3em;
+}
+form li{
+	list-style:none;
+	margin-bottom:16px;
+	width:100%;
+	background: #262626;
+}
+
+.icon{
+	background:url(../images/icons.png)  no-repeat 0px 0px;
+	height:40px;
+	width:40px;
+	display: block;
+	float:left;
+	margin:5% -8% 0% 0%;
+}
+
+.user{
+	background: url(../images/icons.png) no-repeat 7px 1px;
+	margin-top:-1%;
+}
+.lock{
+	background: url(../images/icons.png) no-repeat -31px 2px;
+	margin-top:-1%;
+}
+
+input[type="text"], input[type="password"] {
+	font-family: 'Open Sans', sans-serif;
+	width: 60%;
+	padding-top: 0.4em;
+	padding-right: 0.5em;
+	padding-left: 1em;
+	padding-bottom: 0.4em;
+	color: #fff;
+	font-size: 18px;
+	outline: none;
+	background: none;
+	border: none;
+}
+
+input[type="submit"]{
+	float:right;
+	font-size:18px;
+	background:#5CCD00;
+	background:-moz-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#5CCD00),color-stop(100%,#4AA400));
+	background:-webkit-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:-o-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:-ms-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background:linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#5CCD00', endColorstr='#4AA400',GradientType=0);
+	padding:10px 15px;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:16px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #459A00
+}
+
+.form_error{
+	position: relative;
+    overflow: visible;
+    float: none;   
+    color: #f00;
+    z-index: 999;
+}
