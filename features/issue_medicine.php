@@ -26,6 +26,6 @@ Issue Medicine:-
     <input type="submit" name="submit" value="Confirm" >
     </form>
 </div>
-<input type="button" class="logout" value="logout" onClick="location.href='../logout.php'">
+<input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-include('session.php');
+include('lib/session.php');
 if($login_type=='doctor') {
 	header("location:doctor_home.php");
 }
@@ -28,7 +28,7 @@ if($login_type=='doctor') {
     </tr>
     <tr>
       <td><input type="button" class="button" value="View Stock" onClick="location.href='features/view_stock.php'"></td>
-      <td><input type="button" class="button" value="View Record" onClick="location.href='features/view_record.php'"></td>
+      <td><input type="button" class="button" value="View Record" onClick="location.href='features/view_patient_record.php'"></td>
     </tr>
     <tr>
       <td><input type="button" class="button" value="Report" onClick="location.href='features/report.php'"></td>
@@ -63,7 +63,7 @@ if($login_type=='doctor') {
   </tbody>
 </table>
 </div>
-<input type="button" class="logout" value="logout" onClick="location.href='logout.php'">
+<input type="button" class="logout" value="logout" onClick="location.href='lib/logout.php'">
 <!---<div id="error_log" >
 <textarea cols="1110" rows="10"></textarea></div>-->
 </body>

@@ -1,0 +1,45 @@
+body {
+	background-image: url(../images/background.jpg);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-repeat:no-repeat;
+	background-color:#1b1b1b;
+}
+
+.home {
+	background-image:url(../images/home.png);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	position: absolute;
+	left: 130px;
+	top: 31px;
+	width: 39px;
+	height: 30px;
+	border:0;
+  	z-index: 59;
+}
+
+.logout {
+	background-image: url(../images/logout.jpg);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width:110px;
+	height:25px;
+	position:absolute;
+	top: 38px;
+	left: 1160px;
+	color: #fff;
+	text-align:center;
+	font-size:16px;
+	padding: 0px 0px 0px 14px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #459A00;
+}

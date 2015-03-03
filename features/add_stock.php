@@ -11,6 +11,6 @@
 <div id="table_form">
 Add Stock:-
 </div>
-<input type="button" class="logout" value="logout" onClick="location.href='../logout.php'">
+<input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 </body>
 </html>

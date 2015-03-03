@@ -1,5 +1,5 @@
 <?php
-include('login.php');
+include('lib/login.php');
 if(isset($_SESSION['login_user'])){
 header("location: home.php");
 }
