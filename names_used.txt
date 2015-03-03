@@ -1,0 +1,11 @@
+Admin Database
+	username : admin
+	password : password
+	
+Admin login 
+	username : admin
+	password : password
+	
+Databases
+	health_centre
+	
