@@ -9,4 +9,4 @@ Admin login
 Databases
 	health_centre
 	
-Add to stock - confirm submits to insert_to_db.php
+Add to stock - confirm submits to insert_to_stock.php
