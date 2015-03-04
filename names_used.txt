@@ -8,5 +8,8 @@ Admin login
 	
 Databases
 	health_centre
+		Tables
+			member
+			Medicine_Stock
 	
 Add to stock - confirm submits to insert_to_db.php
