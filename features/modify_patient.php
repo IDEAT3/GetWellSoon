@@ -1,3 +1,7 @@
+<?php
+	include '../lib/session.php';
+	if($login_type=='doctor') {header("location: ../doctor_home.php");}
+?>
 <!doctype html>
 <html>
 <head>

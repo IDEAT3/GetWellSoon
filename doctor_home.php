@@ -1,5 +1,8 @@
 <?php
 include('lib/session.php');
+if($login_type=='admin') {
+	header("location:home.php");
+}
 ?>
 <!doctype html>
 <html>

@@ -12,7 +12,7 @@ if($login_type=='doctor') {
 </head>
 <body>
 <div id="button_table">
-<table width="250" height "800" border="0" cellspacing="6" cellpadding="0">
+<table width="250" height "800" border="0" cellspacing="4" cellpadding="0">
   <tbody>
     <tr>
       <td>Medicine</td>
@@ -36,6 +36,7 @@ if($login_type=='doctor') {
     </tr>
     <tr>
       <td><input type="button" class="button" value="Yearly Report" onClick="location.href='features/yearly_report.php'"></td>
+	  <td><input type="button" class="button" value="Medical Certificate" onClick="location.href='features/issue_medical_certificate.php'"></td>
     </tr>
   </tbody>
 </table>
@@ -43,22 +44,16 @@ if($login_type=='doctor') {
 <input type="button" class="issue_med" value="Issue Medicine" onClick="location.href='features/issue_medicine.php'">
 
 <div id="profile_settings">
-<table width="150" height "500" border="0" cellpadding="0">
+<table width="150" height "500" border="0" cellpadding="0" cellspacing="6">
   <tbody>
+	<tr>
+		<td>Edit Details</td>
+	</tr>
     <tr>
-      <td><input type="button" class="update_prof" value="Update Profile" onClick="location.href='#'"></td>
+      <td><input type="button" class="button" value="Update Profile" onClick="location.href='#'"></td>
     </tr>
     <tr>
-      <td>Edit Details</td>
-    </tr>
-    <tr>
-      <td><input type="button" class="button" value="Timings" onClick="location.href=#"></td>
-    </tr>
-    <tr>
-      <td><input type="button" class="button" value="Contacts" onClick="location.href=#"></td>
-    </tr>
-    <tr>
-      <td><input type="button" class="button" value="Doctors" onClick="location.href=#"></td>
+      <td><input type="button" class="button" value="Doctor Profiles" onClick="location.href=#"></td>
     </tr>
   </tbody>
 </table>

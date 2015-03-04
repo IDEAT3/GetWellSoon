@@ -1,4 +1,6 @@
 <?php
+	include '../lib/session.php';
+	if($login_type=='doctor') {header("location: ../doctor_home.php");}
 	$_SESSION['count']=1;
 	$row_count=1;
 ?>
@@ -18,56 +20,51 @@
 <body>
 <input type="button" class="home" value="" onClick="location.href='../home.php'">
 <div id="table_form">
-<form action="insert_to_stock.php" method="post">
+<form action="../lib/insert_to_stock.php" method="post">
 Add Stock:-
-<table width="1462" border="0" cellspacing="0" cellpadding="20">
+<table width="1230" border="0" cellspacing="0" cellpadding="15" >
 	<thead>
     <tr>
-      <td width="94">Date</td>
-      <td width="95">Bill No</td>
-      <td width="184">Recieved From</td>
-      <td width="195">Medicine</td>
-      <td width="115">Batch No</td>
-      <td width="74">Expiry</td>
-      <td width="70">Qty</td>
-      <td width="73">Cost</td>
+      <td width="65">Date</td>
+      <td width="65">Bill No</td>
+      <td width="174">Recieved From</td>
+      <td width="175">Medicine</td>
+      <td width="65">Batch No</td>
+      <td width="65">Expiry</td>
+      <td width="50">Qty</td>
+      <td width="50">Cost</td>
     </tr>
     </thead>
-    <tbody>
-    <tr class="table">
-      <td><input type="text" id= 'Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
+    <tbody class="table">
+    <tr>
+      <td><input type="text" class= 'Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
-      <td><input type="text" id= 'Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
+      <td><input type="text" class= 'Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
     </tr>
    <tr class="table_odd">
-      <td><input type="text" id='Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
+      <td><input type="text" class='Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
-      <td><input type="text" id= 'Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
+      <td><input type="text" class= 'Datepicker' name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
       <td><input type="text" name="<?php echo $_SESSION['count'] . '_' . $row_count; $row_count++;?>"></td>
     </tr>
     </tbody>
 </table>
-<table width="1462" border="0" cellspacing="0" cellpadding="20">
-  <tbody>
-  </tbody>
-</table>
-
 <input type="submit" name="submit" value="Confirm" >
 </form>
 </div>
 <input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 <script type="text/javascript">
 $(function() {
-	$( "#Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true}); 
+	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true}); 
 });
 
 
