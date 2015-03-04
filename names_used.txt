@@ -12,4 +12,4 @@ Databases
 			member
 			Medicine_Stock
 	
-Add to stock - confirm submits to insert_to_db.php
+Add to stock - confirm submits to insert_to_stock.php
