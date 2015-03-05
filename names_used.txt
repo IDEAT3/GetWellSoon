@@ -8,8 +8,6 @@ Admin login
 	
 Databases
 	health_centre
-		Tables
-			member
-			Medicine_Stock
 	
-Add to stock - confirm submits to insert_to_stock.php
+Add to stock
+	add to temporary stock temp_medicine_stock and then confirms to medicine stock
