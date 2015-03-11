@@ -27,7 +27,7 @@ if(isset($_SESSION['login_user']))
 <div class=logo></div>
 <div class="login-form">
 	<h1>Login </h1>
-	<form action="" method="post">	<! Submits to itself so that if credentials are correct (verified by lib/login.php script), redirected to home page >
+	<form action="" method="post">	<!-- Submits to itself so that if credentials are correct (verified by lib/login.php script), redirected to home page -->
 		<li>
 			<input type="text" name='username' class="text" autocomplete="on" onfocus="if(this.value == 'User Name') {this.value='';};" onblur="if (this.value == '') {this.value = 'User Name';}" value="User Name" ><p class=" icon user"></p>
 		</li>
