@@ -67,10 +67,10 @@ Report :-
 <div id="from_to">
 	<form action="" method=POST>
 		From
-		<td><input type="text" class='Datepicker' name="from" size="20" maxlength="10"></td>
+		<td><input type="text" class='Datepicker' name="from" size="20" maxlength="10" style="background-color:#242426;color:white"></td>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		To
-		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10"></td> 
+		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10" style="background-color:#242426;color:white"></td> 
 		<input type="submit" name="go" value="Go" class="button" id="go">
 </form>  
 	</form> 

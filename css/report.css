@@ -126,14 +126,13 @@ input[type="search"] {
 #from_to
 {
 	font-size: 23px;
-	color: rgb(255, 198, 2);
 	line-height: 0.5;
 	text-align: left;
 	position: absolute;
 	left: 350px;
 	top: 150px;
 	z-index: 2;
-	color: #EE2B12;
+	color: #FFA500;
 }
 
 #go
@@ -152,7 +151,7 @@ input[type="search"] {
 #Stock_Values
 {
 	font-size: 23px;
-	color: rgb(0, 0, 255);
+	color: #FFFFFF;
 	line-height: 0.5;
 	text-align: left;
 	position: absolute;
