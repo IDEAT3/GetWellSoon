@@ -72,8 +72,7 @@ Report :-
 		To
 		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10" style="background-color:#242426;color:white"></td> 
 		<input type="submit" name="go" value="Go" class="button" id="go">
-</form>  
-	</form> 
+	</form>   
 </div>
 
 <div id="Stock_Values">
