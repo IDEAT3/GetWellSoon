@@ -1,6 +1,6 @@
 <?php
 	include '../lib/session.php';
-	if($login_type=='doctor') {header("location: ../doctor_home.php");}
+	if($login_type!='doctor' && $login_type!='admin') {header("location: ../index.php");}
 ?>
 <!doctype html>
 <html>

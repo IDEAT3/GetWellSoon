@@ -1,3 +1,9 @@
+<!--
+ * File name: doctor_home.php
+ * makes sure that on doctors are able to access this page.
+ * provides features to view patient's record and update the doctor's profile.
+-->
+ 
 <?php
 include('lib/session.php');
 if($login_type=='admin') {

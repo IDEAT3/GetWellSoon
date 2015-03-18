@@ -1,33 +1,32 @@
+<!--
+ * File name: index.php
+ * The first page in the website. The login page.
+-->
+
 <?php
-
 include('lib/login.php');
-
-if(isset($_SESSION['login_user']))
-{
-	header("location: home.php");	/* Redirect to home page if already logged in */
+if(isset($_SESSION['login_user'])){
+header("location: home.php");
 }
 ?>
-
-<!Doctype html>
+<!doctype html>
 <html>
-
 <head>
-	<meta charset="utf-8">
-	<title>NITC Health Centre</title>
-	<link href="css/login.css" type="text/css" rel="stylesheet"/>
-	<style type="text/css">
-		body,td,th
-		{
-			font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
-		}
-	</style>
+<meta charset="utf-8">
+<title>NITC Health Centre</title>
+<link href="css/login.css" type="text/css" rel="stylesheet"/>
+<style type="text/css">
+body,td,th {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+}
+</style>
 </head>
 
-<body bgcolor="1b1b1b">	
+<body bgcolor="1b1b1b">
 <div class=logo></div>
 <div class="login-form">
 	<h1>Login </h1>
-	<form action="" method="post">	<!-- Submits to itself so that if credentials are correct (verified by lib/login.php script), redirected to home page -->
+	<form action="" method="post">
 		<li>
 			<input type="text" name='username' class="text" autocomplete="on" onfocus="if(this.value == 'User Name') {this.value='';};" onblur="if (this.value == '') {this.value = 'User Name';}" value="User Name" ><p class=" icon user"></p>
 		</li>

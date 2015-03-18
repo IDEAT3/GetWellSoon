@@ -1,3 +1,25 @@
+<!-- 
+ * File name: home.php
+ * This page is the home page of the admin.
+ * Provides many features like
+ *    i. Stock.
+ *		 1. Adding medicine to stock.
+ *		 2. Removing medicine to stock.
+ *		 3. Viewing current stock.
+ *		 4. Generating report on the transactions made during a period of time.
+ *       5. Generating yearly report as a document that gives the total expenditure of the last business year.
+ *    ii. Patient.
+ *		 1. Adding a patient to the record on his first visit to the health centre.
+ * 		 2. Modifying a patient's details if necessary who is already present in the database.
+ *		 3. Viewing the record of a patient who is already present in the database.
+ *		 4. Delete the record of patient(s) who are not eligible to visit the health centre anymore.
+ *		 5. Issuing medical certificate to those who apply for it.
+ *		 6. Issuing medicine to patients.
+ *	  iii. Profile of admin
+ *		 1. Update admin's profile.
+ *		 2. Update the doctors and create accounts for doctors who joins the health centre.	 
+-->
+
 <?php
 include('lib/session.php');
 if($login_type=='doctor') {

@@ -1,7 +1,12 @@
+<!--
+Error if same medicine name and batch no is added which is currently present in the database.
+
+-->
 <?php
 	include ('../lib/session.php');
 	include ('../lib/configure.php');
 	if($login_type=='doctor') {header("location: ../doctor_home.php");}
+	$item=0;
 ?>
 <!doctype html>
 <html>
@@ -21,7 +26,7 @@
 
 <script type="text/javascript">
 $(function() {
-	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true}); 
+	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"dd-mm-yy"}); 
 });
 </script>
 
@@ -56,16 +61,41 @@ Add Stock:-
 
 <?php
 if(isset($_POST['insert'])) {
-	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$_POST['Date']}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$_POST['Expiry']}','{$_POST['Qty']}','{$_POST['Cost']}');";
-	if ($conn->query($sql) === TRUE) {
+	$date=date("Y-m-d", strtotime($_POST['Date']));
+	$expiry=date("Y-m-d", strtotime($_POST['Expiry']));
+	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";
+	if ($conn->query($sql) == TRUE) {
  //   echo "New records created successfully";
+		$item++;
+		echo $item;
 } else {
- //   echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 }
 
 ?>
+
+<?php   
+	if(isset($_POST['confirm'])) {
+		$query=mysqli_query($conn, "INSERT INTO medicine_stock SELECT * FROM temp_medicine_stock ORDER BY MedicineName");
+		if($query) {
+			mysqli_query($conn, "DELETE FROM temp_medicine_stock");
+			?>
+			<script>alert("<?php echo $item?> items added to stock.")</script>
+			<?php
+		}
+		else {?>
+			 <script>alert("Medicine with same name and batch no exists")</script>
+			<?php
+		}
+	}
+?>
+<form action="" method="post">
+	<input type="submit" name="confirm" value="Confirm" class="button" id="confrm">
+</form>
+	
+
 
 <form action="" method="post">
     <table cellspacing=7>
@@ -83,15 +113,15 @@ if(isset($_POST['insert'])) {
 	</thead>
 	<tbody>
 	<tr>
-		<td><input type="text" class='Datepicker' name="Date" size="9" maxlength="10"></td>
-		<td><input type="text" name="BillNo" size="12"></td>
-		<td><input type="text" name="ReceivedFrom" size="30"></td>
-		<td><input type="text" name="Medicine" size="30"></td>
-		<td><input type="text" name="BatchNo" size="12"></td>
-		<td><input type="text" class='Datepicker' name="Expiry"  size="9" maxlength="10"></td>
-		<td><input type="text" name="Qty" size="6"></td>
-		<td><input type="text" name="Cost" size="6"></td>
-		<th><input type="submit" name="insert" value="Insert" ></th>
+		<td><input type="text" class='Datepicker' name="Date" size="7" maxlength="10"></td>
+		<td><input type="text" name="BillNo" size="10"></td>
+		<td><input type="text" name="ReceivedFrom" size="27"></td>
+		<td><input type="text" name="Medicine" size="27"></td>
+		<td><input type="text" name="BatchNo" size="10"></td>
+		<td><input type="text" class='Datepicker' name="Expiry"  size="7" maxlength="10"></td>
+		<td><input type="text" name="Qty" size="4"></td>
+		<td><input type="text" name="Cost" size="4"></td>
+		<th><input type="submit" name="insert" value="Insert" class="button" ></th>
 	</tr>
 	</tbody>
 	</table>
@@ -101,12 +131,11 @@ if(isset($_POST['insert'])) {
 <div id="datatable1">
 <table id="data" class="display">
 	<thead>
-		<tr id=datatable2">
-			
+		<tr id="datatable2">		
 			<th>Date</th>
 			<th>Bill No</th>
 			<th>Received From</th>
-			<th>Medicine</th>
+			<th>Medicine Name</th>
 			<th>Batch No</th>
 			<th>Expiry</th>
 			<th>Qty</th>
@@ -115,9 +144,11 @@ if(isset($_POST['insert'])) {
 		</tr>
 	</thead>	
 	<tbody>
+	
 		<?php
 			if(isset($_POST['delete'])) {
 				mysqli_query($conn, "DELETE FROM temp_medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}');");
+				$item--;
 			}
 			$result = mysqli_query($conn, "SELECT * from temp_medicine_stock");
 			while($row = mysqli_fetch_array($result)) {
@@ -136,7 +167,7 @@ if(isset($_POST['insert'])) {
 			</form>
 		</tr>
 		<?php } ?>
-		<input type="submit" name="confirm" value="Confirm" class="confirm">
+		
 	</tbody>
 </div>
 
