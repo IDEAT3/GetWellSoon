@@ -11,13 +11,25 @@
 <!--CSS-->
 <link href="../css/med_cft.css" rel="stylesheet" type="text/css"> 
 
+<!-- Datepicker -->
+<link href="../jQueryAssets/datepicker/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+<link href="../jQueryAssets/datepicker/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="../jQueryAssets/datepicker/jquery.ui.datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="../jQueryAssets/datepicker/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="../jQueryAssets/datepicker/jquery-ui-1.9.2.datepicker.custom.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(function() {
+	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"dd-mm-yy"}); 
+});
+</script>
+
 <!-- dataTable -->
 <link href="../jQueryAssets/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="../jQueryAssets/datatables/css/shCore.css">
 <link rel="stylesheet" type="text/css" href="../jQueryAssets/datatables/css/demo.css">
 <style type="text/css" class="init">
 </style>
-<script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/shCore.js"></script>
 <script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/demo.js"></script>
@@ -43,14 +55,14 @@ View Medical Certificate
 <div id="from_to">
 	<form action="" method=POST>
 		From
-		<td><input type="text" class='Datepicker' name="from" size="20" maxlength="10" style="background-color:#242426;color:white"></td>
+		<td><input id="frm" type="text" class='Datepicker' name="from" size="20" maxlength="10" style="background-color:#242426;color:white"></td>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		To
 		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10" style="background-color:#242426;color:white"></td> 
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="submit" name="go" value="Go" class="button" id="go">
 	</form>   
 </div>
+
 
 <div id="datatable3">
 <table id="data" class="display">
@@ -70,8 +82,17 @@ View Medical Certificate
 	<tbody>
 	
 		<?php
-			$result = mysqli_query($conn, "SELECT * from Medical_Certificate");
-			while($row = mysqli_fetch_array($result)) {
+			if ((isset($_POST['go'])) AND (isset($_POST['from'])) AND (isset($_POST['to'])))
+			{
+				$frm=date("Y-m-d", strtotime($_POST['from']));
+				$to=date("Y-m-d", strtotime($_POST['to']));
+				$result = mysqli_query($conn, "SELECT * from Medical_Certificate WHERE ((IssueDate >= '$frm') AND (IssueDate <= '$to'));");
+			}
+			else
+			{
+				$result = mysqli_query($conn, "SELECT * from Medical_Certificate");
+			}
+				while($row = mysqli_fetch_array($result)) {
 		?>
 		<tr>
 			<form action="" method="post">
