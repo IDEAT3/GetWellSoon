@@ -2,10 +2,16 @@
 	/* Assumes that add_stock.php and remove_stock.php populates the transactions table. Two additional fields - Type (Addition or Removal - Set to 'Addition' by default) and Transaction_Date (name="transaction_date")
 	 * The table shows all fields in add_stock (with 'Date being renamed to Purchase_Date') plus Type field and Date field ( which will be the Transaction_Date in the database).
 	*/
-
-	include '../lib/session.php';
-	include '../lib/configure.php';
-	if($login_type=='doctor') {header("location: ../doctor_home.php");}
+include ('../lib/configure.php');
+session_start();
+if(isset($_SESSION['login_user'])){
+	if ($_SESSION['login_user']=="doctor") {
+		header("location: ../doctor_home.php");
+	}
+}
+else {
+	header("location: ../index.php");
+}
 	$count=0;
 ?>
 <!doctype html>

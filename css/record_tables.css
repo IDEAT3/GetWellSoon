@@ -1,11 +1,11 @@
-html, body {
-	background-color:#1b1b1b;
+body {
 	background-image: url(../images/background.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	background-repeat:no-repeat;
+	background-color:#1b1b1b;
 }
 
 .display thead {
@@ -37,7 +37,6 @@ html, body {
 	left: 90px;
 	top: 100px;
 	z-index: 2;
-	width:90%;
 }
 
 #table1 form{
@@ -62,14 +61,6 @@ html, body {
 #datatable3 {
 	position: absolute;
 	top: 133px;
-	width:97%;
-	font-size:16px;
-	margin-left:15px;
-}
-
-#datatable4 {
-	position: absolute;
-	top: 193px;
 	width:97%;
 	font-size:16px;
 	margin-left:15px;

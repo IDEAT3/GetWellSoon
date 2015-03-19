@@ -1,6 +1,13 @@
 <?php
-	include '../lib/session.php';
-	if($login_type!='doctor' && $login_type!='admin') {header("location: ../index.php");}
+	session_start();
+	if(isset($_SESSION['login_user'])){
+		if ($_SESSION['login_user']=="doctor") {
+			header("location: ../doctor_home.php");
+		}
+	}
+	else {
+		header("location: ../index.php");
+	}
 ?>
 <!doctype html>
 <html>
