@@ -1,15 +1,8 @@
 
 <?php
-include ('../lib/configure.php');
-session_start();
-if(isset($_SESSION['login_user'])){
-	if ($_SESSION['login_user']=="doctor") {
-		header("location: ../doctor_home.php");
-	}
-}
-else {
-	header("location: ../index.php");
-}
+	include ('../lib/session.php');
+	include ('../lib/configure.php');
+	if($login_type=='doctor') {header("location: ../doctor_home.php");}
 ?>
 
 <!doctype html>

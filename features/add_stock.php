@@ -3,17 +3,9 @@ Error if same medicine name and batch no is added which is currently present in 
 
 -->
 <?php
-include ('../lib/configure.php');
-session_start();
-if(isset($_SESSION['login_user'])){
-	if ($_SESSION['login_user']=="doctor") {
-		header("location: ../doctor_home.php");
-	}
-}
-else {
-	header("location: ../index.php");
-}
-	
+	include ('../lib/session.php');
+	include ('../lib/configure.php');
+	if($login_type=='doctor') {header("location: ../doctor_home.php");}
 	$item=0;
 ?>
 <!doctype html>
@@ -34,7 +26,7 @@ else {
 
 <script type="text/javascript">
 $(function() {
-	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"yy-mm-dd"}); 
+	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"dd-mm-yy"}); 
 });
 </script>
 
@@ -121,14 +113,14 @@ if(isset($_POST['insert'])) {
 	</thead>
 	<tbody>
 	<tr>
-		<td><input type="text" class='Datepicker' name="Date" size="9" maxlength="10"></td>
-		<td><input type="text" name="BillNo" size="12"></td>
-		<td><input type="text" name="ReceivedFrom" size="30"></td>
-		<td><input type="text" name="Medicine" size="30"></td>
-		<td><input type="text" name="BatchNo" size="12"></td>
-		<td><input type="text" class='Datepicker' name="Expiry"  size="9" maxlength="10"></td>
-		<td><input type="text" name="Qty" size="6"></td>
-		<td><input type="text" name="Cost" size="6"></td>
+		<td><input type="text" class='Datepicker' name="Date" size="7" maxlength="10"></td>
+		<td><input type="text" name="BillNo" size="10"></td>
+		<td><input type="text" name="ReceivedFrom" size="27"></td>
+		<td><input type="text" name="Medicine" size="27"></td>
+		<td><input type="text" name="BatchNo" size="10"></td>
+		<td><input type="text" class='Datepicker' name="Expiry"  size="7" maxlength="10"></td>
+		<td><input type="text" name="Qty" size="4"></td>
+		<td><input type="text" name="Cost" size="4"></td>
 		<th><input type="submit" name="insert" value="Insert" class="button" ></th>
 	</tr>
 	</tbody>
@@ -151,7 +143,8 @@ if(isset($_POST['insert'])) {
 			<th>Delete</th>
 		</tr>
 	</thead>	
-	<tbody>	
+	<tbody>
+	
 		<?php
 			if(isset($_POST['delete'])) {
 				mysqli_query($conn, "DELETE FROM temp_medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}');");

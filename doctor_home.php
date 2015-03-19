@@ -3,19 +3,13 @@
  * makes sure that on doctors are able to access this page.
  * provides features to view patient's record and update the doctor's profile.
 -->
-
+ 
 <?php
-session_start();
-if(isset($_SESSION['login_user'])){
-	if ($_SESSION['login_user']=="admin") {
-		header("location: home.php");
-	}
-}
-else {
-	header("location: index.php");
+include('lib/session.php');
+if($login_type=='admin') {
+	header("location:home.php");
 }
 ?>
-
 <!doctype html>
 <html>
 <head>
