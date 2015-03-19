@@ -1,7 +1,14 @@
 <?php
-	include '../lib/session.php';
-	include ('../lib/configure.php');
-	if($login_type=='doctor') {header("location: ../doctor_home.php");}
+include ('../lib/configure.php');
+session_start();
+if(isset($_SESSION['login_user'])){
+	if ($_SESSION['login_user']=="doctor") {
+		header("location: ../doctor_home.php");
+	}
+}
+else {
+	header("location: ../index.php");
+}
 ?>
 <!doctype html>
 <html>
@@ -9,9 +16,6 @@
 <meta charset="utf-8">
 <title>Modify Patient Record</title>
 <link href="../css/add_patient.css" rel="stylesheet" type="text/css">
-
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
 
 <!-- Datepicker -->
 <link href="../jQueryAssets/datepicker/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
@@ -26,18 +30,52 @@ $(function() {
 });
 </script>
 <script type="text/javascript">
+
+<?php
+	if(isset($_SESSION['Name'])) { ?>
+//	alert("yes");
+	document.getElementsByName("Name")[0].setAttribute("value","<?php echo $_SESSION['Name']; ?>");
+<?php $_SESSION['Name']=array(); ?>
+	<?php }
+	else {
+		?> 
+		alert("This patient id doesn't exist!! To add a new user goto Add Patient!!");
+		<?php
+	}
+	?>
+
+
+
+var xmlhttp;
+
+function loadXMLDoc(url,cfunc)
+{
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=cfunc;
+xmlhttp.open("GET",url,true);
+xmlhttp.send();
+}
+
 function get_patient_by_id(){
 	var p_id=document.getElementById("Patient_Id").value;
-	<?php
-		$p_id="<script> document.write(p_id);</script>";
-	?>
-	alert("<?php echo $p_id ?>");
-	<?php
-		$query=mysqli_query("SELECT * from patient where Patient_Id ='{$p_id}';");
-		$row=mysqli_fetch_array($query);
-	?>
+//	alert("ajax_pat_mod.php?q="+p_id);
+	loadXMLDoc("../lib/ajax_pat_mod.php?q="+p_id,function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var x=xmlhttp.responseText;
+			alert(x);
+		}
+	});
 	
-	document.getElementsByName("Name")[0].setAttribute("value","<?php $row['Name'] ?>");
+	
 }
 </script>
 </head>

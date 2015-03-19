@@ -21,15 +21,21 @@
 -->
 
 <?php
-include('lib/session.php');
-if($login_type=='doctor') {
-	header("location:doctor_home.php");
+session_start();
+if(isset($_SESSION['login_user'])){
+	if ($_SESSION['login_user']=="doctor") {
+		header("location: ../doctor_home.php");
+	}
+}
+else {
+	header("location: ../index.php");
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo $login_session; ?> Home Page</title>
+<title><?php echo $_SESSION['login_user']; ?> Home Page</title>
 <link href="css/admin_home.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -72,7 +78,7 @@ if($login_type=='doctor') {
 		<td>Edit Details</td>
 	</tr>
     <tr>
-      <td><input type="button" class="button" value="Update Profile" onClick="location.href='#'"></td>
+      <td><input type="button" class="button" value="Update Profile" onClick="location.href='features/update_profile_admin.php'"></td>
     </tr>
     <tr>
       <td><input type="button" class="button" value="Doctor Profiles" onClick="location.href=#"></td>
