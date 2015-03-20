@@ -1,17 +1,14 @@
 <?php
-  session_start();
-  
-  if(isset($_SESSION['login_user'])) 
-  {
-	if ($_SESSION['login_user']=="doctor")
-	{
-		header("location: ../doctor_home.php");
+	session_start();
+	if(isset($_SESSION['login_user'])){
+		if ($_SESSION['login_user']=="doctor") {
+			header("location: ../doctor_home.php");
+		}
 	}
-  }
-  else 
-  {
+	else {
 		header("location: ../index.php");
-  }
+	}
+  
   
   require("../fpdf17/fpdf.php");
   
