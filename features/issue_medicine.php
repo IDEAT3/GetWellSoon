@@ -16,6 +16,22 @@ else {
 <meta charset="utf-8">
 <title>Isuue Medicine</title>
 <link href="../css/issue_med.css" rel="stylesheet" type="text/css">
+
+
+<!-- dataTable -->
+<link rel="stylesheet" type="text/css" href="../jQueryAssets/datatables/css/jquery.dataTables1.css">
+<link rel="stylesheet" type="text/css" href="../jQueryAssets/datatables/css/shCore.css">
+<link rel="stylesheet" type="text/css" href="../jQueryAssets/datatables/css/demo.css">
+<style type="text/css" class="init"></style>
+<script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../jQueryAssets/datatables/js/demo.js"></script>
+<script type="text/javascript" language="javascript" class="init">
+$(document).ready(function() {
+	$('#data').DataTable();	
+} );
+</script>
 </head>
 
 <body>
@@ -30,10 +46,7 @@ Issue Medicine:-
     Sex: <input name="Sex" type="text" class ="input_class_small">&nbsp;&nbsp;
     Age:<input name="Age" type="text" class ="input_class_small"> <br>
     
-    
-    
-    
-    //////////* Enter a table which increases dynamically with javascript*//////////////
+	
     
     <input type="submit" name="submit" value="Confirm" >
     </form>

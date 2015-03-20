@@ -60,7 +60,7 @@ else {
     </tr>
     <tr>
       <td><input type="button" class="button" value="Report" onClick="location.href='features/report.php'"></td>
-      <td><input type="button" class="button" value="Delete Record" onClick="location.href='features/delete_record'"></td>
+      <td><input type="button" class="button" value="Delete Record" onClick="location.href='features/delete_record.php'"></td>
     </tr>
     <tr>
       <td><input type="button" class="button" value="Yearly Report" onClick="location.href='features/yearly_report.php'"></td>

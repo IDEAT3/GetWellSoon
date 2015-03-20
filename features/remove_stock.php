@@ -14,7 +14,7 @@ else {
 <html>
 <head>
 <meta charset="utf-8">
-<title>Remve Stock</title>
+<title>Remove Stock</title>
 <!--CSS-->
 <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> 
 
@@ -46,7 +46,7 @@ $(document).ready(function() {
 <div id="table1">
 Remove Stock:-
 </div>
-<div id="datatable4">
+<div id="datatable3">
 <table id="data" class="display">
 	<thead>
 		<tr id="datatable2">		
@@ -76,7 +76,14 @@ Remove Stock:-
 					}
 				}
 			}
-			$result = mysqli_query($conn, "SELECT * from medicine_stock");
+			if(isset($_SESSION['med_name'] )){
+				$result = mysqli_query($conn, "SELECT * from medicine_stock where MedicineName='{$_SESSION['med_name']}'");
+				$_SESSION['med_name']=false;
+				unset($_SESSION['med_name']);
+			}
+			else {
+				$result = mysqli_query($conn, "SELECT * from medicine_stock");
+			}
 			while($row = mysqli_fetch_array($result)) {
 		?>
 		

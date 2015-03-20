@@ -63,7 +63,14 @@ View Stock:-
 	<tbody>
 	
 		<?php
-			$result = mysqli_query($conn, "SELECT * from medicine_stock");
+			if(isset($_SESSION['med_name'] )){
+				$result = mysqli_query($conn, "SELECT * from medicine_stock where MedicineName='{$_SESSION['med_name']}'");
+				$_SESSION['med_name']=false;
+				unset($_SESSION['med_name']);
+			}
+			else {
+				$result = mysqli_query($conn, "SELECT * from medicine_stock");
+			}
 			while($row = mysqli_fetch_array($result)) {
 		?>
 		<tr>

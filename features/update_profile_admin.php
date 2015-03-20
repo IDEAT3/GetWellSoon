@@ -16,7 +16,6 @@ else {
 <meta charset="utf-8">
 <title>Modify Patient Record</title>
 <link href="../css/add_patient.css" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 	

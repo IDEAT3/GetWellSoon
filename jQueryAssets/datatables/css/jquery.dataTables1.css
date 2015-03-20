@@ -303,10 +303,12 @@ table.dataTable td {
   zoom: 1;
 }
 .dataTables_wrapper .dataTables_length {
+  margin-top:60px;
   float: left;
 }
 .dataTables_wrapper .dataTables_filter {
-  float: right;
+  margin-bottom:70px;
+  float: left;
   text-align: right;
 }
 .dataTables_wrapper .dataTables_filter input {
