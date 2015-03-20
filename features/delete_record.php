@@ -60,7 +60,7 @@ $(function() {
 <script language="JavaScript" type="text/javascript">
 $(document).ready(function(){
     $("#confiirm").click(function(e){
-        if(!confirm('Are you sure?')){
+        if(!confirm('Are you sure you want to delete the selected records?')){
             e.preventDefault();
             return false;
         }
@@ -96,7 +96,7 @@ Delete Record:-
 			$count++;
 		}
 		if (mysqli_affected_rows($conn) > 0) {
-			?><script>alert("The <?php echo $count ;?> items have been deleted successfully.");</script> <?php
+			?><script>alert("The <?php echo $count ;?> records have been deleted successfully.");</script> <?php
 		} else {
 			?><script>alert("An error has occurred while processing your request.");</script> <?php
 		}

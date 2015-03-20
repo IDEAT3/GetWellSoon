@@ -36,7 +36,7 @@ $(function() {
 <?php   
 	if (isset($_POST['submit'])) {
 		$date=date("Y-m-d", strtotime($_POST['DOB']));
-		$sql="INSERT INTO `health_centre`.`patient` (`Patient_Id`, `Name`, `Dependent`, `Sex`, `Age`, `Ph.No`, `Alt.Ph.No`, `DOB`, `PermanentAddress`, `LocalAddress`) VALUES ('{$_POST['Patient_Id']}', '{$_POST['Name']}', '{$_POST['Dependent']}', '{$_POST['Sex']}','{$_POST['Age']}', '{$_POST['Ph_No']}', '{$_POST['Altph_No']}', '{$date}', '{$_POST['Permanent_Address']}', '{$_POST['Local_Address']}');";
+		$sql="INSERT INTO `health_centre`.`patient` (`Patient_Id`, `Name`, `Dependent`, `Sex`, `Age`, `Ph.No`, `Alt.Ph.No`, `DOB`, `PermanentAddress`, `LocalAddress`) VALUES ('{$_POST['Patient_Id']}', '{$_POST['Name']}', '{$_POST['Dependent']}', '{$_POST['Sex']}','{$_POST['Age']}', '{$_POST['Ph_No']}', '{$_POST['AltPh_No']}', '{$date}', '{$_POST['Permanent_Address']}', '{$_POST['Local_Address']}');";
 		$query=mysqli_query($conn,$sql);
 		if(!$query) {?>
 			<script>alert("Patient was not added!! <?php echo $sql; ?>");</script>
