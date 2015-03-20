@@ -64,7 +64,11 @@ else {
     </tr>
     <tr>
       <td><input type="button" class="button" value="Yearly Report" onClick="location.href='features/yearly_report.php'"></td>
-	  <td><input type="button" class="button" value="Medical Certificate" onClick="location.href='features/issue_medical_certificate.php'"></td>
+	  <td><input type="button" class="button" value="Issue Med. Cft" onClick="location.href='features/issue_medical_certificate.php'"></td>
+    </tr>
+	<tr>
+      <td></td>
+	  <td><input type="button" class="button" value="View Med. Cft" onClick="location.href='features/view_medical_certificate.php'"></td>
     </tr>
   </tbody>
 </table>

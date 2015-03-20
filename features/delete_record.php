@@ -63,6 +63,10 @@ $(function() {
 Delete Record:-
 </div>
 
+<form action="" method="post">
+	<input type="submit" name="confirm" value="Confirm" class="button" id="confrm">
+</form>
+
 <div id="datatable3">
 <table id="data" class="display">
 	<thead>
@@ -81,7 +85,7 @@ Delete Record:-
 		?>
 		<tr>
 			<form action="" method="post">
-				<td><center><input class="case" name="case" value="1" type="checkbox"></center></td>
+				<td><center><input class="case" name="case" type="checkbox"></center></td>
 				<td><center><?php echo $row['Patient_Id'];?></center></td>
 				<td><center><?php echo $row['Name'];?></center></td>
 				<td><center><?php echo $row['Dependent'];?></center></td>

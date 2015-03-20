@@ -90,7 +90,7 @@ if(isset($_POST['insert'])) {
 		if($query) {
 			mysqli_query($conn, "DELETE FROM temp_medicine_stock");
 			?>
-			<script>alert("<?php echo $item?> items added to stock.")</script>
+			<script>alert("Items added to stock.")</script>
 			<?php
 		}
 		else {?>
