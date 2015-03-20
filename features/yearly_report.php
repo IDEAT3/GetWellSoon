@@ -49,10 +49,10 @@
 	<input type="button" class="home" value="" onClick="location.href='../home.php'">
 	<input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 	<div id="table1">
-	Yearly Report :-
+	Yearly Report
 	<form action="" method="post" id="year">
 		<input id="input_year" type=text name="year" value=<?php if (!isset($_POST['year'])) echo $curr_year; else echo $_POST['year']; ?> size="4"/>
-		<input type=submit value="Go" style="color:white;background-color:#4AaA00;" size="5" onclick="validate()">
+		<input type=submit value="Go" size="5" onclick="validate()">
 	</form>
 	<a id="pdf_link" href="generate_pdf.php" target="_blank">Print</a>
 	</div>

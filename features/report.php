@@ -2,9 +2,9 @@
 	/* Assumes that add_stock.php and remove_stock.php populates the transactions table. Two additional fields - Type (Addition or Removal - Set to 'Addition' by default) and Transaction_Date (name="transaction_date")
 	 * The table shows all fields in add_stock (with 'Date being renamed to Purchase_Date') plus Type field and Date field ( which will be the Transaction_Date in the database).
 	*/
-include ('../lib/configure.php');
-session_start();
-if(isset($_SESSION['login_user'])){
+	include ('../lib/configure.php');
+	session_start();
+	if(isset($_SESSION['login_user'])){
 	if ($_SESSION['login_user']=="doctor") {
 		header("location: ../doctor_home.php");
 	}
@@ -73,10 +73,10 @@ Report :-
 <div id="from_to">
 	<form action="" method=POST>
 		From
-		<td><input type="text" class='Datepicker' name="from" size="20" maxlength="10" style="background-color:#242426;color:white"></td>
+		<td><input type="text" class='Datepicker' name="from" size="20" maxlength="10" style="background-color:#242426;color:white" value=<?php echo $_POST['from'];?>></td>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		To
-		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10" style="background-color:#242426;color:white"></td> 
+		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10" style="background-color:#242426;color:white" value=<?php echo $_POST['to'];?>></td> 
 		<input type="submit" name="go" value="Go" class="button" id="go">
 	</form>   
 </div>

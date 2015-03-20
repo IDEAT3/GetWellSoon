@@ -91,7 +91,44 @@ else {
 </table>
 </div>
 <input type="button" class="logout" value="logout" onClick="location.href='lib/logout.php'">
-<!---<div id="error_log" >
-<textarea cols="1110" rows="10"></textarea></div>-->
+
+<div id="alert_table">
+
+<?php
+	$scroll_text = "";
+// Alert code. Expiry Alert
+	
+	$curr_date = date("Y/m/d");
+	$check_date = date("Y/m/d", strtotime("+30 days"));
+	$result = mysqli_query($conn, "SELECT * from medicine_stock WHERE (Expiry > '$check_date')");
+	while($row = mysqli_fetch_array($result))
+	{
+		$exp = date("Y/m/d",strtotime($row['Expiry']));
+		$scroll_text = $scroll_text."<a href='features/remove_stock.php' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".$row['Expiry']."	|	</a>";
+
+	}
+	
+// Out of Stock Alert
+	$rslt = mysqli_query($conn, "SELECT DISTINCT MedicineName FROM medicine_stock;");
+	while($med = mysqli_fetch_array($rslt))
+	{
+		$med_name = $med['MedicineName'];
+		$quantity_rslt = mysqli_query($conn, "SELECT SUM(Qty) AS quantity FROM medicine_stock WHERE (MedicineName = '$med_name');");
+		$qty_row = mysqli_fetch_array($quantity_rslt);
+		$qty = $qty_row['quantity'];
+		if ($qty < $min_qty)
+		{
+			$scroll_text = $scroll_text."<a href='features/view_stock.php' style='text-decoration: none;color:red'>Out of Stock : ".$med_name." - ".$qty." left		|	";
+?>
+
+<?php
+		
+		}
+	}
+	$_SESSION['med_name'] = $med_name;
+?>
+	<marquee onmouseover="this.stop();" onmouseout="this.start();"><a href="features/view_stock" style="text-decoration: none"><font color="FF00CC"><?php echo $scroll_text; ?></font></a></marquee>
+
+</div>
 </body>
 </html>

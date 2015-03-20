@@ -31,7 +31,7 @@ body {
 	text-align: left;
 	position: absolute;
 	left: 90px;
-	top: 100px;
+	top: 120px;
 	z-index: 2;
 }
 
@@ -59,7 +59,7 @@ body {
 #pdf_link{
 	font-family: 'Open Sans', sans-serif;
 	font-size: 21px;
-	color: violet;
+	color:#0064FF;
 	line-height: 0.5;
 	text-align: left;
 	position: relative;
@@ -67,6 +67,16 @@ body {
 	top: -40px;
 	z-index: 2;
 }
+
+#pdf_link:hover
+{
+	color:blue;
+}
+#pdf_link:active
+{
+	color:red;
+}
+
 
 #year
 {
@@ -95,5 +105,30 @@ body {
 	left : 55px;
 	color : white;
 }
+
+input[type="text"] 
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #FFFFFF;
+	height: 25px;
+	padding-left:0.5em;
+	outline: none;
+	border: initial;
+	border-radius: 5px;
+	background-color:#242424;
+}
+
+input[type="submit"] 
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #FFFFFF;
+	height: 25px;
+	padding-left:0.5em;
+	outline: none;
+	border: initial;
+	border-radius: 5px;
+	background-color:green;
+}
+
 
 
