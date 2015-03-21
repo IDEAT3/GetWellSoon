@@ -22,6 +22,7 @@
 
 <?php
 session_start();
+include('lib/configure.php');
 if(isset($_SESSION['login_user'])){
 	if ($_SESSION['login_user']=="doctor") {
 		header("location: ../doctor_home.php");
@@ -30,6 +31,7 @@ if(isset($_SESSION['login_user'])){
 else {
 	header("location: ../index.php");
 }
+$min_qty = 10;
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +42,7 @@ else {
 </head>
 <body>
 <div id="button_table">
-<table width="250" height "800" border="0" cellspacing="4" cellpadding="0">
+<table width="250" border="0" cellspacing="4" cellpadding="0">
   <tbody>
     <tr>
       <td>Medicine</td>
@@ -92,7 +94,7 @@ else {
 </div>
 <input type="button" class="logout" value="logout" onClick="location.href='lib/logout.php'">
 
-<div id="alert_table">
+<div id="alert_bar">
 
 <?php
 	$scroll_text = "";
@@ -103,9 +105,9 @@ else {
 	$result = mysqli_query($conn, "SELECT * from medicine_stock WHERE (Expiry > '$check_date')");
 	while($row = mysqli_fetch_array($result))
 	{
+		$med_name = $row['MedicineName'];
 		$exp = date("Y/m/d",strtotime($row['Expiry']));
-		$scroll_text = $scroll_text."<a href='features/remove_stock.php' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".$row['Expiry']."	|	</a>";
-
+		$scroll_text = $scroll_text."<a href='features/remove_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".$row['Expiry']."	|	</a>";
 	}
 	
 // Out of Stock Alert
@@ -118,17 +120,15 @@ else {
 		$qty = $qty_row['quantity'];
 		if ($qty < $min_qty)
 		{
-			$scroll_text = $scroll_text."<a href='features/view_stock.php' style='text-decoration: none;color:red'>Out of Stock : ".$med_name." - ".$qty." left		|	";
-?>
-
-<?php
+			$scroll_text = $scroll_text."<a href='features/view_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Out of Stock : ".$med_name." - ".$qty." left		|	";
 		
 		}
 	}
+	
 	$_SESSION['med_name'] = $med_name;
 ?>
-	<marquee onmouseover="this.stop();" onmouseout="this.start();"><a href="features/view_stock" style="text-decoration: none"><font color="FF00CC"><?php echo $scroll_text; ?></font></a></marquee>
+	<marquee onmouseover="this.setAttribute('scrollamount', 0, 0);this.stop();" onmouseout="this.setAttribute('scrollamount', 6, 0);this.start();"><a href="features/view_stock" style="text-decoration: none"><font color="FF00CC" face="times"><?php echo $scroll_text; ?></font></a></marquee>
 
 </div>
 </body>
-</html>
+</html>	
