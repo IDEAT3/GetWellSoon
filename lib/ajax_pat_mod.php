@@ -10,29 +10,30 @@
 		header("location: ../index.php");
 	}
 	
-	
 	$q=$_GET['q'];
-	echo $q;
+//	echo $q;
 	$sql="SELECT * from patient where Patient_Id = '{$q}'";
 	$query=mysqli_query($conn,$sql);
+	$text="";
 	if(mysqli_num_rows($query)==1) {
 		$row = mysqli_fetch_array($query);
-		echo "yes akshay";
-		$_SESSION['Name'] = $row['Name'] ;
-		$_SESSION['Dependent'] = $row['Dependent'];
-		$_SESSION['Sex'] = $row['Sex'];
-		$_SESSION['Age'] = $row['Age'];
-		$_SESSION['Ph.No'] = $row['Ph.No'];
-		$_SESSION['Alt.Ph.No'] = $row['Alt.Ph.No'];
-		$_SESSION['DOB'] = $row['DOB'];
-		$_SESSION['PermanentAddress'] = $row['PermanentAddress'];
-		$_SESSION['LocalAddress'] = $row['LocalAddress'];
+		$text="1!+!" . $row['Name'] . "!+!" . $row['Dependent'] . "!+!" . $row['Sex'] . "!+!" . $row['Age'] . "!+!" . $row['Ph.No'] . "!+!" . $row['Alt.Ph.No'] . "!+!" . $row['DOB'] . "!+!" . $row['PermanentAddress'] . "!+!" . $row['LocalAddress'];
 	}
 	else {
+		$row = mysqli_fetch_array($query);
+		$Name = $row['Name'];
+		$text="2!+!" . $Name . "!+!" . $row['Dependent'];
 		while($row = mysqli_fetch_array($query)) {
-			
+			$text = $text . "!+!" . $row['Dependent'];
+			if($row['Name']!=$Name) {
+				$Name="";
+				break;
+			}
+		}
+		if($Name=="") {
+			$text="";
 		}
 	}
-	echo "";
+	echo $text;
 ?>
 

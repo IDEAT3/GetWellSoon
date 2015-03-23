@@ -63,7 +63,7 @@ View Stock:-
 	<tbody>
 	
 		<?php
-			if ($_GET['q'] != NULL)
+			if (isset($_GET['q']) && $_GET['q'] != NULL)
 			{
 				$med_name = $_GET['q'];
 				$result = mysqli_query($conn, "SELECT * from medicine_stock where (MedicineName='$med_name')");
