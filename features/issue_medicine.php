@@ -16,8 +16,8 @@ else {
 <meta charset="utf-8">
 <title>Isuue Medicine</title>
 <link href="../css/issue_med.css" rel="stylesheet" type="text/css">
-<link href="../css/record_tables.css" rel="stylesheet" type="text/css"> 
-
+<!-- <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> -->
+<script src="../jQueryAssets/js/issuemed.js" ></script>
 
 
 <!-- Datepicker -->
@@ -29,7 +29,7 @@ else {
 
 <script type="text/javascript">
 $(function() {
-	$( "input:text[name=1date]" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"dd-mm-yy"}); 
+	$( "input:text[name=1date]" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"yy-mm-dd"}); 
 });
 </script>
 
@@ -62,33 +62,23 @@ $(document).ready(function() {
 Issue Medicine:-
 
 <?php
-if(isset($_POST['submit'])) {
-	$sql = "SELECT * from patient where Patient_Id='{$_POST['Patient_Id']}' AND Name='{$_POST['Name']}' AND Dependent = '{$_POST['Dependent']}'";
-	$result=mysqli_query($conn, $sql);
-	if (mysqli_num_rows($result)>0) {
-		$row=mysqli_fetch_array($result);  ?>
-		<script type="text/javascript">
-			$("input:text[name=Patient_Id]").val("<?php echo $_POST['Patient_Id']; ?>");
-			$("input:text[name=Name]").val("<?php echo $_POST['Name']; ?>");
-			$("input:text[name=Dependent]").val("<?php echo $_POST['Dependent']; ?>");
-		</script>
-<?php
-	} else {
-    ?> <script> alert("Patient does not exist"); </script> <?php
+if(isset($_POST['Add'])) {
+	$date=date("Y-m-d");
+	$sql = "INSERT INTO temp_consultaion VALUES ('{$_POST['PatientId']}','{$_POST['Dependent']}','{$date}','{$_POST['Cause']}','{$_POST['MedicineName']}','{$_POST['Timings']}','{$_POST['NoOfDays']}');";	
+	if(mysqli_query($conn,$sql)==false) {
+		?> <script> alert("Could not issue the medicine"); </script> <?php
 	}
 }
-
 ?>
 
-
 	<form id="f1" action="" method="post">
-    Roll No:<input name="Patient_Id" type="text" class ="input_class_med" autocomplete="on">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    Name: <input name="Name" type="text" class ="input_class_med" autocomplete="on"><br>
-    Dependent: <input name="Dependent" type="text" class ="input_class_med" autocomplete="on">&nbsp;&nbsp;&nbsp;&nbsp;
-    Sex: <input name="Sex" type="text" class ="input_class_small">&nbsp;&nbsp;
-    Age:<input name="Age" type="text" class ="input_class_small"> &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="submit" name="submit" value="Get Patient" >
+    Patient ID:<input name="Patient_Id" id="Patient_Id" type="text" class ="input_class_id" onchange="get_patient_by_id()">&nbsp;
+    Name: <input name="Name" type="text" id="Name" class ="input_class_name" onchange="get_patient_by_name()">&nbsp;
+    Dependent: <input name="Dependent" type="text" id="Dependent" class ="input_class_name" onblur="get_patient_by_dependent()">&nbsp;
+    Sex: <input name="Sex" type="text" id="Sex" class ="input_class_small">&nbsp;
+    Age:<input name="Age" type="text" id="Age" class ="input_class_small"> &nbsp;
+	Cause: <input type='text' name='1cause' class ='input_class_id'>&nbsp;
+    <input type="submit" name="submit" value="Patient" >
     </form>
 
 <?php   
@@ -113,9 +103,8 @@ if(isset($_POST['submit'])) {
 </form>
 	
 <form id='f2' action='' method='post'>
-Date: <input type='text' name='1date' class ='input_class_ms'>&nbsp;&nbsp;&nbsp;Cause: <input type='text' name='1cause' class ='input_class_ms'>&nbsp;&nbsp;&nbsp;
-Medicine: <input type='text' name='1medicine' class ='input_class_med' ><br>Timings: <input type='text' name='1timings' class ='input_class_ms'>&nbsp;&nbsp;&nbsp;No.of Days<input type='text' name='1no.ofdays' class ='input_class_small'>&nbsp;&nbsp;&nbsp;
-<input type='submit' name='Add' value='Issue'>&nbsp;&nbsp;&nbsp;
+Medicine: <input type='text' name='1medicine' class ='input_class_name' >&nbsp;&nbsp;Timings: <input type='text' name='1timings' class ='input_class_ms'>&nbsp;&nbsp;No.of Days<input type='text' name='1no.ofdays' class ='input_class_small'>&nbsp;
+<input type='submit' name='Add' value='Issue'>
 </form>
 </div>
 <div id='datatable4'>

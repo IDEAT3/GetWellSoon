@@ -29,29 +29,20 @@ function get_patient_by_id() {
 			if( arr[0] == "1") {
 				$("#Name").val(arr[1]);
 				$("#Dependent").val(arr[2]);
-			//	alert(arr[3]);
-				if(arr[3]=="female" || arr[3]=="Female") {$( "#F" ).prop("checked", true);} else {$( "#M" ).prop("checked", true);}
+		//		alert(arr[3]);
+				if(arr[3]=="Male") $("#Sex").val("M");
+				else $("#Sex").val("F");
 				$("input:text[name=Age]").val(arr[4]);
-				$("input:text[name=Ph_No]").val(arr[5]);
-				$("input:text[name=AltPh_No]").val(arr[6]);
-				$("input:text[name=DOB]").val(arr[7]);
-			//	alert(arr[1]);
-				$("textarea[name=Permanent_Address]").val(arr[8]);
-				$("textarea[name=Local_Address]").val(arr[9]);
 				$("#Dependent").autocomplete('disable');	
 			}
 			else if( arr[0] == "2"){
 				$("#Name").val(arr[1]);
 				$("#Dependent").val("");
-				if(arr[2]=="Female") {$( "#F" ).prop("checked", true);} else {$( "#M" ).prop("checked", true);}
+				if(arr[2]=="Male") $("#Sex").val("M");
+				else $("#Sex").val("F");
 				$("input:text[name=Age]").val(arr[3]);
-				$("input:text[name=Ph_No]").val(arr[4]);
-				$("input:text[name=AltPh_No]").val(arr[5]);
-				$("input:text[name=DOB]").val(arr[6]);
-				$("textarea[name=Permanent_Address]").val(arr[7]);
-				$("textarea[name=Local_Address]").val(arr[8]);
 				var dependents = arr.slice(9);
-				//alert(dependents);
+			//	alert(dependents);
 				$('#Dependent').autocomplete({
 					source:dependents,
 					minLength: 0,
@@ -64,13 +55,8 @@ function get_patient_by_id() {
 				alert("This patient id doesn't exist!! To add a new user goto Add Patient!!");
 				$("#Name").val("");
 				$("#Dependent").val("");
-				$( "input:radio[id=M]:checked" ).val(true);
+				$("#Sex").val("");
 				$("input:text[name=Age]").val("");
-				$("input:text[name=Ph_No]").val("");
-				$("input:text[name=AltPh_No]").val("");
-				$("input:text[name=DOB]").val("");
-				$("textarea[name=Permanent_Address]").val("");
-				$("textarea[name=Local_Address]").val("");
 			}
 		}
 	});
@@ -84,12 +70,8 @@ function get_patient_by_name() {
 	{
 		$("#Patient_Id").val("");
 		$("#Dependent").val("");
+		$("#Sex").val("");
 		$("input:text[name=Age]").val("");
-		$("input:text[name=Ph_No]").val("");
-		$("input:text[name=AltPh_No]").val("");
-		$("input:text[name=DOB]").val("");
-		$("textarea[name=Permanent_Address]").val("");
-		$("textarea[name=Local_Address]").val("");
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			var x=xmlhttp.responseText;
@@ -101,19 +83,14 @@ function get_patient_by_name() {
 			if( arr[0] == "1") {
 				$("#Patient_Id").val(arr[1]);
 				$("#Dependent").val(arr[2]);
-				if(arr[3]=="Female") {$( "input:radio[id=F]:checked" ).val(true);} else {$( "input:radio[id=M]:checked" ).val(true);}
+				if(arr[3]=="Male") $("#Sex").val("M");
+				else $("#Sex").val("F");
 				$("input:text[name=Age]").val(arr[4]);
-				$("input:text[name=Ph_No]").val(arr[5]);
-				$("input:text[name=AltPh_No]").val(arr[6]);
-				$("input:text[name=DOB]").val(arr[7]);
-			//	alert(arr[1]);
-				$("textarea[name=Permanent_Address]").val(arr[8]);
-				$("textarea[name=Local_Address]").val(arr[9]);
 			}
 			else if( arr[0] == "2"){
 				document.getElementsByName('Name')[0].setAttribute("value",arr[1]);
 				var names = arr.slice(1);
-		//		alert(names);
+				alert(names);
 				$('#Name').autocomplete({
 					source:names,
 					minLength: 0,
@@ -134,12 +111,8 @@ function get_patient_by_name() {
 				alert("This patient name doesn't exist!! To add a new user goto Add Patient!!");
 				$("#Patient_Id").val("");
 				$("#Dependent").val("");
+				$("#Sex").val("");
 				$("input:text[name=Age]").val("");
-				$("input:text[name=Ph_No]").val("");
-				$("input:text[name=AltPh_No]").val("");
-				$("input:text[name=DOB]").val("");
-				$("textarea[name=Permanent_Address]").val("");
-				$("textarea[name=Local_Address]").val("");
 			}
 		}
 	});
@@ -153,25 +126,17 @@ function get_patient_by_dependent() {
 	loadXMLDoc("../lib/ajax_pat_mod.php?dependent=" + dependent + "&pid=" + pid,function()
 	{
 		$("input:text[name=Age]").val("");
-		$("input:text[name=Ph_No]").val("");
-		$("input:text[name=AltPh_No]").val("");
-		$("input:text[name=DOB]").val("");
-		$("textarea[name=Permanent_Address]").val("");
-		$("textarea[name=Local_Address]").val("");
+		$("#Sex").val("");
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			var x=xmlhttp.responseText;
-		//	alert(x + "11");
+	//		alert(x + "11");
 			var arr = x.split("!+!");
 			if( arr[0] == "1") {
-				if(arr[1]=="Female") {$( "input:radio[id=F]:checked" ).val(true);} else {$( "input:radio[id=M]:checked" ).val(true);}
+				if(arr[1]=="Male") $("#Sex").val("M");
+				else $("#Sex").val("F");
 				$("input:text[name=Age]").val(arr[2]);
-				$("input:text[name=Ph_No]").val(arr[3]);
-				$("input:text[name=AltPh_No]").val(arr[4]);
-				$("input:text[name=DOB]").val(arr[5]);
-			//	alert(arr[1]);
-				$("textarea[name=Permanent_Address]").val(arr[6]);
-				$("textarea[name=Local_Address]").val(arr[7]);
+				
 			}
 			else {
 				alert("This dependent name  doesn't exist!! To add a new user goto Add Patient!!");

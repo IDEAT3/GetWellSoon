@@ -37,7 +37,7 @@ $(function() {
 	$("#Patient_Id").val("<?php echo $_POST['Patient_Id']; ?>");
 	$("#Name").val("<?php echo $_POST['Name']; ?>");
 	$("#Dependent").val("<?php echo $_POST['Dependent']; ?>");
-	if("<?php echo $_POST['Sex'] ;?>" =="female") {$( "input:radio[id=F]:checked" ).val(true);} else {$( "input:radio[id=M]:checked" ).val(true);}
+	if("<?php echo $_POST['Sex'] ;?>" =="Female") {$( "#F" ).prop("checked", true);} else {$( "#M" ).prop("checked", true);}
 	$("input:text[name=Age]").val("<?php echo $_POST['Age']; ?>");
 	$("input:text[name=Ph_No]").val("<?php echo $_POST['Ph_No']; ?>");
 	$("input:text[name=DOB]").val("<?php echo $_POST['DOB']; ?>");
@@ -65,11 +65,12 @@ Update Patient Details :-
 		$date=date("Y-m-d", strtotime($_POST['DOB']));
 		?><script> //alert("<?php echo $_SESSION['pid']; ?>");
 		</script><?php  
-		$sql="UPDATE `patient` SET `Patient_Id`= '{$_POST['Patient_Id']}' , `Name`= '{$_POST['Name']}' , `Dependent`= '{$_POST['Dependent']}', `Sex`= '{$_POST['Sex']}', `Age`= '{$_POST['Age']}', `Ph.No`= '{$_POST['Ph_No']}', `Alt.Ph.No`= '{$_POST['AltPh_No']}', `DOB`= '{$date}', `PermanentAddress`= '{$_POST['Permanent_Address']}' , `LocalAddress`= '{$_POST['Local_Address']}' WHERE `Patient_Id` = '{$_SESSION['pid']}'"; //AND `Name`=$name AND `Dependent`=$dependent";
-	//	$sql = "UPDATE `patient` SET `Patient_Id`='B120301CS',`Name`= 'Akshay' WHERE `Patient_Id` = 'B120301CS'";
+		$sql="UPDATE `patient` SET `Patient_Id`= '{$_POST['Patient_Id']}' , `Name`= '{$_POST['Name']}' , `Dependent`= '{$_POST['Dependent']}', `Sex`= '{$_POST['Sex']}', `Age`= '{$_POST['Age']}', `Ph.No`= '{$_POST['Ph_No']}', `Alt.Ph.No`= '{$_POST['AltPh_No']}', `DOB`= '{$date}', `PermanentAddress`= '{$_POST['Permanent_Address']}' , `LocalAddress`= '{$_POST['Local_Address']}' WHERE `Patient_Id` = '{$_SESSION['pid']}' AND `Name`='{$_SESSION['name']}' AND `Dependent`='{$_SESSION['dependent']}'";
 		if($conn->query($sql) == TRUE) {
-			?><script> alert("successfully updated"); </script><?php
-			//header("location:../features/modify_patient");
+			?><script> alert("successfully updated"); 
+			window.location.assign("../features/modify_patient.php");
+			</script><?php
+			
 		}
 		else {
 			?><script> alert("Not updated"); </script><?php
@@ -82,8 +83,8 @@ Update Patient Details :-
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     Name: <input name="Name" type="text" id="Name" class ="input_class_med"><br>
     Dependent: <input name="Dependent" type="text" id="Dependent" class ="input_class_med" >&nbsp;&nbsp;&nbsp;&nbsp;
-    Sex:&nbsp;<input name="Sex" type="radio" id="M" value="male" checked>Male &nbsp;
-    		  <input name="Sex" type="radio" id="F" value="female">Female &nbsp;&nbsp;
+    Sex:&nbsp;<input name="Sex" type="radio" id="M" value="Male" checked>Male &nbsp;
+    		  <input name="Sex" type="radio" id="F" value="Female">Female &nbsp;&nbsp;
     Age: <input name="Age" type="text" class ="input_class_small"><br>
 	Ph. No: <input name="Ph_No" type="text" class ="input_class_med" autocomplete="on">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

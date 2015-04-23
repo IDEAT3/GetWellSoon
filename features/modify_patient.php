@@ -43,11 +43,11 @@ Modify Patient Details :-
 <form action="../lib/pat_mod.php" method="post">
 	Patient ID: <input name="Patient_Id" type="text" id="Patient_Id" class ="input_class_med" onchange="get_patient_by_id()">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    Name: <input name="Name" type="text" id="Name" class ="input_class_med" onchange="get_patient_by_name()"><br>
+    Name: <input name="Name" type="text" id="Name" class ="input_class_med" oninput="get_patient_by_name()"><br>
     Dependent: <input name="Dependent" type="text" id="Dependent" class ="input_class_med" onblur="get_patient_by_dependent()">&nbsp;&nbsp;&nbsp;&nbsp;
 	<label>
-    Sex:&nbsp;<input name="Sex" type="radio" id="M" value="male" checked>Male &nbsp;
-    		  <input name="Sex" type="radio" id="F" value="female">Female &nbsp;&nbsp;
+    Sex:&nbsp;<input name="Sex" type="radio" id="M" value="Male" checked>Male &nbsp;
+    		  <input name="Sex" type="radio" id="F" value="Female">Female &nbsp;&nbsp;
     Age: <input name="Age" type="text" class ="input_class_small" readonly><br>
 	Ph. No: <input name="Ph_No" type="text" class ="input_class_med" autocomplete="on" readonly>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
