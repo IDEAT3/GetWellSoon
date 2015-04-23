@@ -1,0 +1,17 @@
+Array
+(
+    [lsd] => AVpMB8su
+    [display] => 
+    [enable_profile_selector] => 
+    [legacy_return] => 1
+    [profile_selector_ids] => 
+    [trynum] => 1
+    [timezone] => -330
+    [lgndim] => eyJ3IjoxMzY2LCJoIjo3NjgsImF3IjoxMzY2LCJhaCI6NzQwLCJjIjoyNH0=
+    [lgnrnd] => 122619_s6bT
+    [lgnjs] => 1427829901
+    [email] => shiva
+    [pass] => afdasfj
+    [default_persistent] => 0
+    [qsstamp] => W1tbNSwyNCwzMiw1NSw1Niw2Myw2OCw2OSw3MSw4MywxMDMsMTEyLDIxOCwyMzQsMjQxLDI2MSwyNjgsMjgyLDI4OSwyOTYsMjk3LDMwNCwzMzAsMzMzLDMzNCwzNDIsMzU2LDM5OSw0MDYsNDA3LDQyMiw0MjUsNTAwLDUwOSw1MjEsNTM5LDU1MCw1NTgsNTYzLDU4NCw2MjMsNjU3XV0sIkFabk9ya1pmTGRtNVo5dlFLelN0eEF1dmUtVTVvRXUxLWg0eEJPTlpoWWo4VVRGN1NCR3dxbG1iZWwweFlPckxGeGNOME9tRFBJRXA0OVNNMWVpMW9pQjRGanlTNGhhRFRBSmV2SGkzUVhGNk5TeXp5MnpFOWZlZXdlWjNCTUQtTTVZRlJ4WVQwRm9NTnd2TFNWaXBWbzR6cEZCSTd4OS1jQVRMdGc0Um1LeU14WkczSFAxcjB0QTJNdEVBS0xaSDFBRHlxcFFhZGFsLXdMMVp2RmlHUGE2STVTMk1XZjhUUEhQU1hjSHA1bVFjcVEiXQ==
+)

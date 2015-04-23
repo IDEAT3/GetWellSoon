@@ -5,16 +5,20 @@ Error if same medicine name and batch no is added which is currently present in 
 <?php
 include ('../lib/configure.php');
 session_start();
-if(isset($_SESSION['login_user'])){
-	if ($_SESSION['login_user']=="doctor") {
+if(isset($_SESSION['login_user']))
+{
+	if ($_SESSION['login_user']=="doctor") 
+	{
 		header("location: ../doctor_home.php");
 	}
 }
-else {
+else 
+{
 	header("location: ../index.php");
 }
+
+if (!$_SESSION['temp_stat']==1) $_SESSION['item']=0;
 	
-	$item=0;
 ?>
 <!doctype html>
 <html>
@@ -34,7 +38,7 @@ else {
 
 <script type="text/javascript">
 $(function() {
-	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"yy-mm-dd"}); 
+	$( ".Datepicker" ).datepicker({ changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, dateFormat:"dd-mm-yy"}); 
 });
 </script>
 
@@ -68,35 +72,67 @@ $(document).ready(function() {
 Add Stock:-
 
 <?php
-if(isset($_POST['insert'])) {
-	$date=date("Y-m-d", strtotime($_POST['Date']));
-	$expiry=date("Y-m-d", strtotime($_POST['Expiry']));
-	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";	
-	if ($conn->query($sql) == TRUE) {
- //   echo "New records created successfully";
-		$item++;
-		echo $item;
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+if(isset($_POST['insert']))
+{
+	if (isset($_POST['Date']))
+	{
+		$date=date("Y-m-d", strtotime($_POST['Date']));
+	}
+	else 
+		$date=date("Y-m-d");
+	if (isset($_POST['Expiry']))
+		$expiry=date("Y-m-d", strtotime($_POST['Expiry']));
+	else 
+		$expiry=date("Y-m-d", strtotime("3000-01-01"));
+		
+	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";
+	if ($conn->query($sql) == TRUE)
+	 {
+		$_SESSION['item']++;
+		$_SESSION['temp_stat']=1;
+	 }
+	else
+	{
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 
 }
 
 ?>
 
 <?php   
-	if(isset($_POST['confirm'])) {
+	if(isset($_POST['confirm'])) 
+	{
 		$query=mysqli_query($conn, "INSERT INTO medicine_stock SELECT * FROM temp_medicine_stock ORDER BY MedicineName");
-		if($query) {
+		if($query)
+		{
+			//populating Transactions table
+			$result=mysqli_query($conn, "SELECT * FROM temp_medicine_stock ORDER BY MedicineName;");
+			$cur_date = date("Y-m-d");
+			while($row = mysqli_fetch_array($result))
+			{
+				$dt = $row['Date'];
+				$bno = $row['BatchNo'];
+				$rcvfrm = $row['RecievedFrom'];
+				$md_nm = $row['MedicineName'];
+				$btch_no = $row['BatchNo'];
+				$exp = $row['Expiry'];
+				$qnt = $row['Qty'];
+				$cst = $row['Cost'];
+				$result=mysqli_query($conn, "INSERT INTO Transactions VALUES ('Addition', '{$cur_date}', '{$dt}', '{$bno}', '{$rcvfrm}', '{$md_nm}', '{$btch_no}', '{$exp}', '{$qnt}', '{$cst}');"); 
+			}	
+			//removing temporary stock
 			mysqli_query($conn, "DELETE FROM temp_medicine_stock");
 			?>
-			<script>alert("Items added to stock.")</script>
+			<script>alert("<?php echo $_SESSION['item']; ?> items added to stock.")</script>
 			<?php
 		}
 		else {?>
 			 <script>alert("Medicine with same name and batch no exists")</script>
 			<?php
 		}
+		$_SESSION['item']=0;
+		$_SESSION['temp_stat']=0;
 	}
 ?>
 <form action="" method="post">
@@ -153,8 +189,9 @@ if(isset($_POST['insert'])) {
 	</thead>	
 	<tbody>	
 		<?php
-			if(isset($_POST['delete'])) {
-				mysqli_query($conn, "DELETE FROM temp_medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}');");
+			if(isset($_POST['delete'])) 
+			{
+				mysqli_query($conn, "DELETE FROM temp_medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}' AND `MedicineName`='{$_POST['Medicine']}');");
 				$item--;
 			}
 			$result = mysqli_query($conn, "SELECT * from temp_medicine_stock");
@@ -162,12 +199,12 @@ if(isset($_POST['insert'])) {
 		?>
 		<tr>
 			<form action="" method="post">
-				<td><center><?php echo $row['Date'];?></center></td>
+				<td><center><?php echo date("d/m/y",strtotime($row['Date']));?></center></td>
 				<td><center><?php echo $row['BillNo'];?></center></td>
 				<td><center><?php echo $row['RecievedFrom'];?></center></td>
 				<td><center><?php echo $row['MedicineName'];?></center></td>
 				<td><center><input type="hidden" name="BatchNo" value="<?php echo $row['BatchNo'];?>"><?php echo $row['BatchNo'];?></center></td>
-				<td><center><?php echo $row['Expiry'];?></center></td>
+				<td><center><?php echo date("d/m/y",strtotime($row['Expiry']));?></center></td>
 				<td><center><?php echo $row['Qty'];?></center></td>
 				<td><center><?php echo $row['Cost'];?></center></td>
 				<td><center><input type="submit" name="delete" value="delete"></center></td>

@@ -85,10 +85,11 @@ body {
 	top: 30px;
 }
 
-#stmt{
+#stmt
+{
 	font-family: "Times New Roman", Times, serif;
 	font-size: 20px;
-	color: #FF4E00;
+	color: #bbbbbb;
 	line-height: 0.5;
 	text-align: left;
 	position: absolute;
@@ -129,6 +130,7 @@ input[type="submit"]
 	border-radius: 5px;
 	background-color:green;
 }
+
 
 
 

@@ -1,15 +1,12 @@
 <?php
 include ('../lib/configure.php');
 session_start();
-if(isset($_SESSION['login_type']))
-{
-	if ($_SESSION['login_type']=="Doctor")
-	{
+if(isset($_SESSION['login_user'])){
+	if ($_SESSION['login_user']=="doctor") {
 		header("location: ../doctor_home.php");
 	}
 }
-else 
-{
+else {
 	header("location: ../index.php");
 }
 
@@ -23,7 +20,7 @@ $row = mysqli_fetch_array($result);
 <html>
 <head>
 <meta charset="utf-8">
-<title>Update Admin Profile</title>
+<title>Update Doctor Profile</title>
 <link href="../css/update_profile.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
@@ -69,7 +66,7 @@ $row = mysqli_fetch_array($result);
 </head>
 
 <body>
-<input type="button" class="home" value="" onClick="location.href='../home.php'">
+<input type="button" class="home" value="" onClick="location.href='../doctor_home.php'">
 <input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 <div id="table1">
 	Update Profile

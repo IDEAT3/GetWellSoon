@@ -1,4 +1,4 @@
-body {
+html,body {
 	background-image: url(../images/background.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -42,4 +42,131 @@ body {
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 	border: 1px solid #459A00;
+}
+
+#search_bar
+{
+	font-family: times;
+	font-size: 22px;
+	position: absolute;
+	top: 20%;
+	color: rgb(255, 198, 2);
+	width:100%;
+}
+
+.search_by
+{
+	position:relative;
+	left: 9%;
+}
+
+#search_bar input
+{
+	border:0;
+	background-color: #292929;
+	border-radius: 7px;
+	color: white;
+	height: 26px;
+}
+
+.hidden
+{
+	display:none;
+}
+
+.hidden_records
+{
+	visibility:hidden;
+}
+
+.hidden_items
+{
+	color:white;
+}
+
+#hidden_fields
+{
+	position:relative;
+	top:20px;
+	font-size:20px;
+}
+
+#pat_record
+{
+	position: absolute;
+	top: 35%;
+	width:96%;
+	margin-left:2%;
+}
+
+#med_cfts
+{
+	position: relative;
+	width:100%;
+}
+
+#docremarks
+{
+	position: relative;
+	width:100%;
+}
+
+.display thead 
+{
+	background-color:#434343;
+}
+
+#pat_head
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	color: rgb(255, 198, 2);
+}
+
+#cft_head
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	color: rgb(255, 198, 2);
+}
+
+#remarks_head
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	color: rgb(255, 198, 2);
+}
+
+
+#view_button
+{
+	position: absolute;
+	left:105%;
+	top:2px;
+	font-family: times;
+	font-size: 20px;
+}
+
+#remark_form
+{
+	position:absolute;
+	left:18%;
+}
+
+#remark_form textarea 
+{
+	border:0;
+	border-radius: 7px;
+}
+
+input[type="search"] {
+	font-family: 'Open Sans', sans-serif;
+	color: #000;
+	padding-left:0.5em;
+	border:initial;
+	width: 200px;
+	border-radius: 5px;
+	height:25px;
+	font-size:16px;
+	margin-bottom:10px;
 }

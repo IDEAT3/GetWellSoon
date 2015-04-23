@@ -124,5 +124,18 @@ input[type="search"] {
 	border: 1px solid #459A00;
 }
 
+input[type="search"] 
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #000;
+	padding-left:0.5em;
+	border:initial;
+	width: 200px;
+	border-radius: 5px;
+	height:25px;
+	font-size:16px;
+	margin-bottom:10px;
+}
+
 
 

@@ -107,3 +107,11 @@ input[type="submit"]{
     color: #f00;
     z-index: 999;
 }
+
+#forgot_pw
+{
+	position:absolute;
+	top:75%;
+	left:45%;
+	color:blue;
+}

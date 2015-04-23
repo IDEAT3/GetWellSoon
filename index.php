@@ -5,12 +5,14 @@
 
 <?php
 
-
-if(isset($_SESSION['login_user'])){
-	if($_SESSION['login_user']=="admin") {
+include("lib/configure.php");
+if(isset($_SESSION['login_type'])){
+	if($_SESSION['login_type']=="admin") 
+	{
 		header("location: home.php");
 	}
-	else if($_SESSION['login_user']=="doctor") {
+	else if($_SESSION['login_type']=="Doctor")
+	{
 		header("location: doctor_home.php");
 	}
 }
@@ -19,46 +21,36 @@ $error="";
 
 if(isset($_POST['submit'])) {
 	session_start();
-	$host="localhost"; // Host name
-	$username="admin"; // Mysql username
-	$password="password"; // Mysql password
-	$db_name="health_centre"; // Database name
-
-// Connect to server and select databse.
-	$link=mysqli_connect("$host", "$username", "$password",$db_name)or die("cannot connect");
-
-// Define $myusername and $mypassword
+	
+	// Define $myusername and $mypassword
 	$myusername=$_POST['username'];
 	$mypassword=$_POST['password'];
 
-// To protect MySQL injection (more detail about MySQL injection)
+
 	$myusername = stripslashes($myusername);
 	$mypassword = stripslashes($mypassword);
-	$myusername = mysqli_real_escape_string($link,$myusername);
-	$mypassword = mysqli_real_escape_string($link,$mypassword);
-	/*
-	$sql="SELECT salt FROM member WHERE username='$myusername'";
-	$result=mysqli_query($link, $sql);
-	$count=mysqli_num_rows($result);
-	if($count==1){
-		$salt = (mysqli_fetch_array($result))['salt'];
-		$password = hash('sha256', $salt . $mypassword);
-	}
-	*/
-	$sql="SELECT * FROM member WHERE username='$myusername' and password='$mypassword'";
-	$result=mysqli_query($link, $sql);
+	$myusername = mysqli_real_escape_string($conn,$myusername);
+	$mypassword = sha1(mysqli_real_escape_string($conn,$mypassword));
+
+	$sql="SELECT * FROM users WHERE UserName='$myusername' and Password='$mypassword'";
+	$result=mysqli_query($conn, $sql);
 
 // Mysql_num_row is counting table row
 	$count=mysqli_num_rows($result);
 
 // If result matched $myusername and $mypassword, table row must be 1 row
 
-	if($count==1){
+	if($count==1)
+	{
+		$row = mysqli_fetch_array($result);
 		$_SESSION['login_user']=$myusername;
-		if($myusername=="admin") {
+		$_SESSION['login_type']=$row['Type'];
+		if($_SESSION['login_type']=="admin")
+		{
 			header("location: home.php");
 		}
-		else {
+		else 
+		{
 			header("location: doctor_home.php");
 		}		
 	}
@@ -97,7 +89,7 @@ body,td,th {
 		</div>
         <span class="form_error"><?php echo $error; ?></span>
 	</form>
-    
+	<a href="features/forgot_password.php" id="forgot_pw">forgot password</a>
 </div>
 </body>
 </html>

@@ -75,12 +75,12 @@ View Stock:-
 		?>
 		<tr>
 			<form action="" method="post">
-				<td><center><?php echo $row['Date'];?></center></td>
+				<td><center><?php echo date("d/m/Y",strtotime($row['Date']));?></center></td>
 				<td><center><?php echo $row['BillNo'];?></center></td>
 				<td><center><?php echo $row['RecievedFrom'];?></center></td>
 				<td><center><?php echo $row['MedicineName'];?></center></td>
 				<td><center><?php echo $row['BatchNo'];?></center></td>
-				<td><center><?php echo $row['Expiry'];?></center></td>
+				<td><center><?php echo date("d/m/Y",strtotime($row['Expiry']));?></center></td>
 				<td><center><?php echo $row['Qty'];?></center></td>
 				<td><center><?php echo $row['Cost'];?></center></td>
 			</form>

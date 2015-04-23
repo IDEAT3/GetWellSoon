@@ -1,4 +1,5 @@
-body {
+body,html
+ {
 	background-image: url(../images/background.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -90,12 +91,6 @@ input[type="text"] {
 	border-radius: 5px;
 }
 
-input[type="search"] {
-	border:initial;
-	border-radius: 5px;
-	height:25px;
-}
-
 .button {
 	font-size: 8px;
 	background: #5CCD00;
@@ -155,17 +150,23 @@ input[type="search"] {
 	line-height: 0.5;
 	text-align: left;
 	position: absolute;
-	left: 560px;
-	top: 250px;
+	left: 25%;
+	top: 285px;
 	z-index: 2;
 }
 
-#total_value
+
+input[type="search"] 
 {
-	position: relative;
-	left: 20px;
+	font-family: 'Open Sans', sans-serif;
+	color: #000;
+	padding-left:0.5em;
+	border:initial;
+	width: 200px;
+	border-radius: 5px;
+	height:25px;
+	font-size:16px;
+	margin-bottom:10px;
 }
-
-
 
 

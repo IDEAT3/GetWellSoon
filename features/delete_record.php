@@ -32,40 +32,23 @@ else {
 
 
 $(document).ready(function() {
-	$('#data').DataTable({
-		"aLengthMenu": [
-         [10, 50, 100, -1],
-         [10, 50, 100, "All"]
-		]
-	});	
+	$('#data').DataTable();	
 } );
 </script>
 
 <script type="text/javascript">
 $(function() {
-	$("#selectall").change(function () {
-		$(".case").prop('checked', $(this).prop("checked"));
+	$("#selectall").click(function() {
+		$('.case').attr('checked',this.checked);
 	});
-	$(".case").change(function() {
-		if($(".case").length == $(".case:checked").length) {
-			$("#selectall").prop('checked', 'checked');
+	$(".case").click(function() {
+		if($(".case").length==$(".case:checked").length) {
+			$("#selectall").attr("checked","checked");
 		}
 		else {
 			$("#selectall").removeAttr("checked");
 		}
 	});
-});
-</script>
-
-<script language="JavaScript" type="text/javascript">
-$(document).ready(function(){
-    $("#confiirm").click(function(e){
-        if(!confirm('Are you sure you want to delete the selected records?')){
-            e.preventDefault();
-            return false;
-        }
-        return true;
-    });
 });
 </script>
 
@@ -79,33 +62,6 @@ $(document).ready(function(){
 <div id="table1">
 Delete Record:-
 </div>
-
-<?php
-
-	if(isset($_POST['confirm']) && isset($_POST['case'])) {
-		$count=0;
-		if( !isset($_POST['case']) || !is_array($_POST['case']) ) {
-		?><script>alert("An error has occurred while processing your request");</script> 
-		<?php
-		}
-		else {
-		$delete = $_POST['case'];
-		foreach ($delete as $val) {
-			$patient = explode("!+!", $val);
-			$result=mysqli_query($conn, "Delete from patient where Patient_Id = '{$patient[0]}' and Dependent = '{$patient[1]}'");
-			$count++;
-		}
-		if (mysqli_affected_rows($conn) > 0) {
-			?><script>alert("The <?php echo $count ;?> records have been deleted successfully.");</script> <?php
-		} else {
-			?><script>alert("An error has occurred while processing your request.");</script> <?php
-		}
-		}
-	}
-?>
-
-<form action="" method="post">
-	<input type="submit" name="confirm" value="Confirm" class="button" id="confiirm">
 
 <div id="datatable3">
 <table id="data" class="display">
@@ -121,12 +77,11 @@ Delete Record:-
 	
 		<?php
 			$result = mysqli_query($conn, "SELECT * from patient");
-			$cnt=0;
 			while($row = mysqli_fetch_array($result)) {
-			$cnt++;
 		?>
 		<tr>
-				<td><center><input type="checkbox" class="case" name="case[]" value="<?php echo $row['Patient_Id'] . "!+!" . $row['Dependent']; ?>" ></center></td>  <!-- Concatenating id + dependent sice only one value is passed.  -->
+			<form action="" method="post">
+				<td><center><input class="case" name="case" value="1" type="checkbox"></center></td>
 				<td><center><?php echo $row['Patient_Id'];?></center></td>
 				<td><center><?php echo $row['Name'];?></center></td>
 				<td><center><?php echo $row['Dependent'];?></center></td>

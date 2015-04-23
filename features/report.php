@@ -4,8 +4,10 @@
 	*/
 	include ('../lib/configure.php');
 	session_start();
-	if(isset($_SESSION['login_user'])){
-	if ($_SESSION['login_user']=="doctor") {
+	if(isset($_SESSION['login_type']))
+	{
+	if ($_SESSION['login_type']=="Doctor") 
+	{
 		header("location: ../doctor_home.php");
 	}
 }
@@ -82,8 +84,8 @@ Report :-
 </div>
 
 <div id="Stock_Values">
-	<p id="total_transactions">Total Transactions = 0</p>
-	<p id="total_value">Total Value = 0</p>
+	<span id="total_transactions">Total Transactions = 0></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<span id="total_value">Total Value = 0</span>
 </div>
 
 <div id="datatable3">
@@ -114,13 +116,13 @@ Report :-
 		<tr>
 			<form action="" method="post">
 				<td><center><?php echo $row['Type'];?></center></td>
-				<td><center><?php echo $row['Transaction_Date'];?></center></td>
-				<td><center><?php echo $row['Date'];?></center></td>
+				<td><center><?php echo date("d/m/Y",strtotime($row['Transaction_Date']));?></center></td>
+				<td><center><?php echo date("d/m/Y",strtotime($row['Date']));?></center></td>
 				<td><center><?php echo $row['BillNo'];?></center></td>
 				<td><center><?php echo $row['RecievedFrom'];?></center></td>
 				<td><center><?php echo $row['MedicineName'];?></center></td>
 				<td><center><?php echo $row['BatchNo'];?></center></td>
-				<td><center><?php echo $row['Expiry'];?></center></td>
+				<td><center><?php echo date("d/m/Y",strtotime($row['Expiry']));?></center></td>
 				<td><center><?php echo $row['Qty'];?></center></td>
 				<td><center><?php echo $row['Cost'];?></center></td>
 			</form>
@@ -129,13 +131,13 @@ Report :-
 			$result = mysqli_query($conn, "SELECT SUM(Cost) AS Total from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to') AND (Type='Addition'));");
 			$row = mysqli_fetch_array($result);
 			if ($row['Total']==NULL) $add = 0; else $add = $row['Total'];
-			$result = mysqli_query($conn, "SELECT SUM(Cost) AS Total from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to') AND (Type='Removal'));");
-			$row = mysqli_fetch_array($result);
-			if ($row['Total']==NULL) $rem = 0; else $rem = $row['Total'];
+			//$result = mysqli_query($conn, "SELECT SUM(Cost) AS Total from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to') AND (Type='Removal'));");
+			//$row = mysqli_fetch_array($result);
+			//if ($row['Total']==NULL) $rem = 0; else $rem = $row['Total'];
 	    ?>
 	<script>
-		document.getElementById("total_value").innerHTML = "Total Value = <?php echo $add-$rem ?>";
-		document.getElementById("total_transactions").innerHTML = "Total Transactions = <?php echo $count ?>";
+		document.getElementById("total_value").innerHTML = "Value Added : <?php echo $add ?>";
+		document.getElementById("total_transactions").innerHTML = "No of Transactions : <?php echo $count ?>";
 	</script>
 	
 	</tbody>

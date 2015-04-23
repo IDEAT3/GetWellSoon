@@ -48,34 +48,45 @@ $(function() {
 <?php
 if(isset($_POST['insert'])) 
 {
-	$iss_date = date("Y-m-d", strtotime($_POST['IssueDate']));
-	$name = $_POST['Name'];
-	$type = $_POST['Type'];
-	$rollno = $_POST['RollNo'];
-	$from = date("Y-m-d", strtotime($_POST['From']));
-	$days = $_POST['Days'];
-	$cause = $_POST['Cause'];
-	$doctor = $_POST['Doctor'];
-	$result = mysqli_query($conn,"SELECT * FROM Medical_Certificate WHERE CftNo=(select max(CftNo) from Medical_Certificate);");
-	$row = mysqli_fetch_array($result);
-	$slno = $row['CftNo']+1;
-	//$result = mysqli_query($conn, "INSERT INTO Medical_Certificate VALUES ('2','2015-08-12','Vishnu','Student','B120806cs','2014-04-03','5','Cold','VishalPeter');");
-	$result = mysqli_query($conn, "INSERT INTO Medical_Certificate VALUES ('{$slno}','{$iss_date}','{$name}','{$type}','{$rollno}','{$from}','{$days}','{$cause}','{$doctor}');");
-	if (!$result)
+	if (($_POST['Name'] != NULL) and ($_POST['RollNo'] != NULL) and ($_POST['From'] != NULL) and ($_POST['Days']!=NULL))
 	{
-?>
-	<script>
-		window.alert("Values not Inserted");
-	</script>
+		$iss_date = date("Y-m-d", strtotime($_POST['IssueDate']));
+		$name = $_POST['Name'];
+		$type = $_POST['Type'];
+		$rollno = $_POST['RollNo'];
+		$from = date("Y-m-d", strtotime($_POST['From']));
+		$days = $_POST['Days'];
+		$cause = $_POST['Cause'];
+		$doctor = $_POST['Doctor'];
+		$result = mysqli_query($conn,"SELECT * FROM Medical_Certificate WHERE CftNo=(select max(CftNo) from Medical_Certificate);");
+		$row = mysqli_fetch_array($result);
+		$slno = $row['CftNo']+1;
+		//$result = mysqli_query($conn, "INSERT INTO Medical_Certificate VALUES ('2','2015-08-12','Vishnu','Student','B120806cs','2014-04-03','5','Cold','VishalPeter');");
+		$result = mysqli_query($conn, "INSERT INTO Medical_Certificate VALUES ('{$slno}','{$iss_date}','{$name}','{$type}','{$rollno}','{$from}','{$days}','{$cause}','{$doctor}');");
+		if (!$result)
+		{
+		?>
+			<script>
+			window.alert("Values not Inserted");
+			</script>
 <?php
+		}
+		else 
+		{
+?>
+		<script>
+			window.alert("Success");
+		</script>
+<?php
+		}
 	}
-	else 
+	else
 	{
 ?>
-	<script>
-		window.alert("Success");
-	</script>
-<?php
+		<script>
+			window.alert("Please fill in Name, Roll No, From Date and No of Days to insert");
+		</script>
+<?php		
 	}
 }
 ?>

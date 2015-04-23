@@ -14,6 +14,14 @@ if(isset($_SESSION['login_user'])){
 else {
 	header("location: index.php");
 }
+
+include("lib/configure.php");
+$user = $_SESSION['login_user'];
+
+$result = mysqli_query($conn,"SELECT * FROM users WHERE (UserName='$user');");
+$row = mysqli_fetch_array($result);
+$name = "Dr. ".$row["Name"]
+
 ?>
 
 <!doctype html>
@@ -27,11 +35,11 @@ else {
 <body>
 
 <div id="doctor_detail">
-<?php echo $login_session;?><br><br>
+<?php echo $name;?><br><br>
 <input type="button" class="view_patient_record" value="View Patient Record" onClick="location.href='features/view_patient_record.php'">
 </div>
 
-<input type="button" class="update_prof" value="Update Profile" onClick="location.href='#'">
+<input type="button" class="update_prof" value="Update Profile" onClick="location.href='features/doctor_update_profile.php'">
 <input type="button" class="logout" value="logout" onClick="location.href='lib/logout.php'">
 </body>
 </html>

@@ -59,8 +59,8 @@ body {
 	-webkit-border-radius: 2px;
 	border: 1px solid #459A00;
 	position:absolute;
-	top:110px;
-	left: 1100px;
+	top:23%;
+	left: 81%;
 }
 
 .logout {
@@ -72,8 +72,8 @@ body {
 	width:110px;
 	height:25px;
 	position:absolute;
-	top: 38px;
-	left: 1160px;
+	top: 7%;
+	left: 85%;
 	color: #fff;
 	text-align:center;
 	font-size:16px;

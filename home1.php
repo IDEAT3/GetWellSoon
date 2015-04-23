@@ -23,9 +23,8 @@
 <?php
 session_start();
 include('lib/configure.php');
-if(isset($_SESSION['login_type'])){
-	if ($_SESSION['login_type']!="admin")
-	 {
+if(isset($_SESSION['login_user'])){
+	if ($_SESSION['login_user']=="doctor") {
 		header("location: ../doctor_home.php");
 	}
 }
@@ -38,7 +37,7 @@ $min_qty = 10;
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo $_SESSION['login_type']; ?> Home Page</title>
+<title><?php echo $_SESSION['login_user']; ?> Home Page</title>
 <link href="css/admin_home.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -88,29 +87,27 @@ $min_qty = 10;
       <td><input type="button" class="button" value="Update Profile" onClick="location.href='features/update_profile_admin.php'"></td>
     </tr>
     <tr>
-      <td><input type="button" class="button" value="Add doctor" onClick="location.href='features/add_doctor.php'"></td>
+      <td><input type="button" class="button" value="Doctor Profiles" onClick="location.href=#"></td>
     </tr>
   </tbody>
 </table>
 </div>
 <input type="button" class="logout" value="logout" onClick="location.href='lib/logout.php'">
 
-<div class="marquee">  
+<div id="alert_bar">
 
 <?php
-	$pcount=0;
 	$scroll_text = "";
 // Alert code. Expiry Alert
 	
 	$curr_date = date("Y/m/d");
 	$check_date = date("Y/m/d", strtotime("+30 days"));
-	$result = mysqli_query($conn, "SELECT * from medicine_stock WHERE (Expiry < '$check_date')");
+	$result = mysqli_query($conn, "SELECT * from medicine_stock WHERE (Expiry > '$check_date')");
 	while($row = mysqli_fetch_array($result))
 	{
-		$med_name= $row['MedicineName'];
+		$med_name = $row['MedicineName'];
 		$exp = date("Y/m/d",strtotime($row['Expiry']));
-		$pcount=$pcount+1;
-		$scroll_text = $scroll_text."<a href='features/remove_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".date("d/m/Y",strtotime($row['Expiry']))."</a> | ";
+		$scroll_text = $scroll_text."<a href='features/remove_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".$row['Expiry']."	|	</a>";
 	}
 	
 // Out of Stock Alert
@@ -123,13 +120,15 @@ $min_qty = 10;
 		$qty = $qty_row['quantity'];
 		if ($qty < $min_qty)
 		{
-			$scroll_text = $scroll_text."<a href='features/view_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Out of Stock : ".$med_name." - ".$qty." left </a> | ";
-			$pcount=$pcount+1;
+			$scroll_text = $scroll_text."<a href='features/view_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Out of Stock : ".$med_name." - ".$qty." left		|	";
+		
 		}
 	}
-	$pcount=$pcount*6;
-	echo "<p style=\"animation: left-one ".$pcount."s linear infinite;\">".$scroll_text."</p>";
+	
+	$_SESSION['med_name'] = $med_name;
 ?>
+	<marquee onmouseover="this.setAttribute('scrollamount', 0, 0);this.stop();" onmouseout="this.setAttribute('scrollamount', 6, 0);this.start();"><a href="features/view_stock" style="text-decoration: none"><font color="FF00CC" face="times"><?php echo $scroll_text; ?></font></a></marquee>
+
 </div>
 </body>
 </html>	

@@ -61,12 +61,12 @@ View Medical Certificate
 
 <div id="from_to">
 	<form action="" method=POST>
-		From
+		&nbsp;&nbsp;&nbsp; From &nbsp;&nbsp;
 		<td><input id="frm" type="text" class='Datepicker' name="from" size="20" maxlength="10" style="background-color:#242426;color:white"></td>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		To
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		To &nbsp;&nbsp;
 		<td><input type="text" class='Datepicker' name="to" size="20" maxlength="10" style="background-color:#242426;color:white"></td> 
-		<input type="submit" name="go" value="Go" class="button" id="go">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="go" value="Go" class="button" id="go">
 	</form>   
 </div>
 

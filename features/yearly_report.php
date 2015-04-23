@@ -117,7 +117,7 @@
 	
 	
 	<div id="stmt">
-		<h1>Statement as on <span id="close_date" style="color:white">31-03-<?php if(!isset($_POST['year'])) echo $curr_year; else echo $_POST['year']; ?></span></h1> 
+		<h1>Statement as on &nbsp; <span id="close_date" style="color:white">31-03-<?php if(!isset($_POST['year'])) echo $curr_year; else echo $_POST['year']; ?></span></h1> 
 		<table id="report_table">
 			<tr>
 				<td>Opening Balance </td>
