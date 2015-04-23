@@ -35,22 +35,33 @@ body {
 	z-index: 2;
 }
 
-form {
-	font-size: 25px;
+#f1 {
+	font-size: 20px;
 	color: rgb(255, 198, 2);
 	line-height: 200%;
 	text-align: left;
 	position: absolute;
 	left: 31px;
-	top: 73px;
+	top: 43px;
 	z-index: 2;
 	width: 1053px;
 	height: 320px;
-	
+}
+
+#f2 {
+	font-size: 20px;
+	color: rgb(255, 198, 2);
+	line-height: 200%;
+	text-align: left;
+	position: absolute;
+	left: 31px;
+	top: 173px;
+	z-index: 2;
+	width: 1053px;
+	height: 320px;
 }
 
 .input_class_med {
-	border: 0;
 	background-color: #262626;
 	width: 280px;
 	font-size: 24px;
@@ -61,10 +72,27 @@ form {
 	padding-bottom: 2px;
 	margin-left: 3px;
 	color: #fff;
+	border: initial;
+	border-radius: 5px;
 }
 
+.input_class_ms {
+	background-color: #262626;
+	width: 160px;
+	font-size: 24px;
+	border-radius: 2px;
+	padding-left: 7px;
+	padding-top: 2px;
+	padding-right: 10px;
+	padding-bottom: 2px;
+	margin-left: 3px;
+	color: #fff;
+	border: initial;
+	border-radius: 5px;
+}
+
+
 .input_class_small {
-	border: 0;
 	background-color: #262626;
 	width: 38px;
 	font-size: 24px;
@@ -75,6 +103,8 @@ form {
 	padding-bottom: 2px;
 	margin-left: 3px;
 	color: #fff;
+	border: initial;
+	border-radius: 5px;
 }
 
 
@@ -118,5 +148,5 @@ input[type="submit"]{
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border: 1px solid #459A00;
-	margin-left: 430px;
+//	margin-left: 430px;
 }

@@ -71,7 +71,7 @@ Add Stock:-
 if(isset($_POST['insert'])) {
 	$date=date("Y-m-d", strtotime($_POST['Date']));
 	$expiry=date("Y-m-d", strtotime($_POST['Expiry']));
-	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";
+	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";	
 	if ($conn->query($sql) == TRUE) {
  //   echo "New records created successfully";
 		$item++;

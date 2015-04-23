@@ -112,6 +112,7 @@ textarea {
 	background-color: #262626;
 	width: 280px;
 	height:280px;
+	resize : none;
 }
 
 .button {
@@ -149,4 +150,13 @@ input[type="submit"]{
 	-webkit-border-radius: 5px;
 	border: 1px solid #459A00;
 	margin-left: 430px;
+}
+
+label textarea {
+	background-color: #1b1b1b;
+	width: 250px;
+	height:150px;
+}
+label input[type="text"] {
+	background-color: #1b1b1b;
 }

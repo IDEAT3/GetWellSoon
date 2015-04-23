@@ -68,7 +68,7 @@ html, body {
 
 #datatable4 {
 	position: absolute;
-	top: 193px;
+	top: 458px;
 	width:97%;
 	font-size:16px;
 	margin-left:15px;
@@ -95,7 +95,7 @@ html, body {
 	border: 1px solid #459A00;
 }
 
-input[type="text"] {
+#data input[type="text"] {
 	font-family: 'Open Sans', sans-serif;
 	color: #000;
 	height: 25px;
