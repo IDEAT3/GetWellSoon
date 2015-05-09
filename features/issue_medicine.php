@@ -9,12 +9,32 @@ if(isset($_SESSION['login_user'])){
 else {
 	header("location: ../index.php");
 }
+
+
+if(isset($_POST['submit'])) {
+	$_SESSION['pid']=$_POST['Patient_Id'];
+	$_SESSION['dep']=$_POST['Dependent'];
+	$_SESSION['cause']=$_POST['Cause'];
+	$_SESSION['name']=$_POST['Name'];
+	$_SESSION['sex']=$_POST['Sex'];
+	$_SESSION['age']=$_POST['Age'];
+}
+
+function unsett() {
+	unset($_SESSION['pid']);
+	unset($_SESSION['dep']);
+	unset($_SESSION['cause']);
+	unset($_SESSION['name']);
+	unset($_SESSION['sex']);
+	unset($_SESSION['age']);
+}
 ?>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Isuue Medicine</title>
+<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <link href="../css/issue_med.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> -->
 <script src="../jQueryAssets/js/issuemed.js" ></script>
@@ -64,7 +84,7 @@ Issue Medicine:-
 <?php
 if(isset($_POST['Add'])) {
 	$date=date("Y-m-d");
-	$sql = "INSERT INTO temp_consultaion VALUES ('{$_POST['PatientId']}','{$_POST['Dependent']}','{$date}','{$_POST['Cause']}','{$_POST['MedicineName']}','{$_POST['Timings']}','{$_POST['NoOfDays']}');";	
+	$sql = "INSERT INTO temp_consultation VALUES ('{$_SESSION['pid']}','{$_SESSION['dep']}','{$date}','{$_SESSION['cause']}','{$_POST['MedicineName']}','{$_POST['Timings']}','{$_POST['NoOfDays']}');";	
 	if(mysqli_query($conn,$sql)==false) {
 		?> <script> alert("Could not issue the medicine"); </script> <?php
 	}
@@ -72,22 +92,24 @@ if(isset($_POST['Add'])) {
 ?>
 
 	<form id="f1" action="" method="post">
-    Patient ID:<input name="Patient_Id" id="Patient_Id" type="text" class ="input_class_id" onchange="get_patient_by_id()">&nbsp;
-    Name: <input name="Name" type="text" id="Name" class ="input_class_name" onchange="get_patient_by_name()">&nbsp;
-    Dependent: <input name="Dependent" type="text" id="Dependent" class ="input_class_name" onblur="get_patient_by_dependent()">&nbsp;
-    Sex: <input name="Sex" type="text" id="Sex" class ="input_class_small">&nbsp;
-    Age:<input name="Age" type="text" id="Age" class ="input_class_small"> &nbsp;
-	Cause: <input type='text' name='1cause' class ='input_class_id'>&nbsp;
-    <input type="submit" name="submit" value="Patient" >
+    Patient ID:<input name="Patient_Id" id="Patient_Id" type="text" class ="input_class_id" readonly value="<?php echo $_SESSION['pid']; ?>">&nbsp;
+    Name: <input name="Name" type="text" id="Name" class ="input_class_name" readonly value="<?php echo $_SESSION['name']; ?>">&nbsp;
+    Dependent: <input name="Dependent" type="text" id="Dependent" class ="input_class_name" readonly value="<?php echo $_SESSION['dep']; ?>">&nbsp;
+    Sex: <input name="Sex" type="text" id="Sex" class ="input_class_small" readonly value="<?php $_SESSION['sex']; ?>">&nbsp;
+    Age:<input name="Age" type="text" id="Age" class ="input_class_small" readonly value="<?php echo $_SESSION['age']; ?>"> &nbsp;
+	Cause: <input type='text' name='cause' class ='input_class_id' readonly value="<?php echo $_SESSION['cause']; ?>">&nbsp;
     </form>
 
 <?php   
 	if(isset($_POST['confirm'])) {
 		$query=mysqli_query($conn, "INSERT INTO consultation SELECT * FROM temp_consultation");
 		if($query) {
-			mysqli_query($conn, "DELETE FROM temp_consultaion");
+			$query=mysqli_query($conn, "DELETE FROM temp_consultation WHERE 1");
+			unsett();
 			?>
-			<script>alert("Medicines issued.")</script>
+			<script>alert("Medicines issued.");
+			window.location.assign("../features/issue_med.php");
+			</script>
 			<?php
 		}
 		else {?>
@@ -96,17 +118,15 @@ if(isset($_POST['Add'])) {
 		}
 	}
 ?>
-	
-	
+		
+<form id='f2' action='' method='post'>
+Medicine: <input type='text' name='MedicineName' class ='input_class_name' >&nbsp;&nbsp;Timings: <input type='text' name='Timings' class ='input_class_ms'>&nbsp;&nbsp;No.of Days<input type='text' name='NoOfDays' class ='input_class_small'>&nbsp;
+<input type='submit' name='Add' value='Issue'>
+</form>
 <form action="" method="post">
 	<input type="submit" name="confirm" value="Confirm" class="button" id="confrm">
 </form>
-	
-<form id='f2' action='' method='post'>
-Medicine: <input type='text' name='1medicine' class ='input_class_name' >&nbsp;&nbsp;Timings: <input type='text' name='1timings' class ='input_class_ms'>&nbsp;&nbsp;No.of Days<input type='text' name='1no.ofdays' class ='input_class_small'>&nbsp;
-<input type='submit' name='Add' value='Issue'>
-</form>
-</div>
+
 <div id='datatable4'>
 <table id='data' class='display'>
 	<thead>
@@ -122,7 +142,8 @@ Medicine: <input type='text' name='1medicine' class ='input_class_name' >&nbsp;&
 	<tbody>
 	<?php
 			if(isset($_POST['delete'])) {
-				mysqli_query($conn, "DELETE FROM temp_consultation WHERE (`Patient_Id`='{$_POST['pid']})';");
+				$query = mysqli_query($conn, "DELETE FROM temp_consultation WHERE (`MedicineName`='{$_POST['mn']}');");
+				if(!$query) echo "niio";
 			}
 			$result = mysqli_query($conn, 'SELECT * from temp_consultation');
 			while($result && $row = mysqli_fetch_array($result)) {
@@ -131,15 +152,16 @@ Medicine: <input type='text' name='1medicine' class ='input_class_name' >&nbsp;&
 			<form action='' method='post'>
 				<td><center><?php echo $row['Date'];?></center></td>
 				<td><center><?php echo $row['Cause'];?></center></td>
-				<td><center><input type='hidden' name='pid' value="<?php echo $_POST['Patient_Id']; ?>"><?php echo $row['Medicine'];?></center></td>
+				<td><center><input type='hidden' name='mn' value="<?php echo $row['MedicineName']; ?>"><?php echo $row['MedicineName'];?></center></td>
 				<td><center><?php echo $row['Timings'];?></center></td>
-				<td><center><?php echo $row['No.ofDays'];?></center></td>
+				<td><center><?php echo $row['NoOfDays'];?></center></td>
 				<td><center><input type='submit' name='delete' value='delete'></center></td>
 			</form>
 		</tr>
 		<?php } ?>
 		
 	</tbody>
+	</div>
 </div>
 </div>
 </body>

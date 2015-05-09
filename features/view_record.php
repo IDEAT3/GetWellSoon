@@ -7,6 +7,7 @@ if (isset($_POST['view_button']))
 	$pid = $_POST['pat_id'];
 	$pname = $_POST['pat_name'];
 	$_SESSION['pid'] = $pid;
+	$_SESSION['dependent'] = $_POST['pat_dep'];
 }
 else
 {
@@ -18,8 +19,9 @@ if (isset($_POST['rem_btn']))
 	$pid = $_SESSION['pid'];
 	$remark = $_POST['doc_rem'];
 	$d = date("Y-m-d");
-	$dep = "";
-	$result = mysqli_query($conn, "INSERT INTO Remarks VALUES ('{$d}', '{$pid}', '{$dep}', '{$remark}');");
+	$dep = $_SESSION['dependent'];
+	$entered_by = $_SESSION["login_user"]." (".$_SESSION["login_type"].") ";
+	$result = mysqli_query($conn, "INSERT INTO Remarks VALUES ('{$d}', '{$pid}', '{$dep}', '{$remark}', '{$entered_by}');");
 /*
  	if ($result)
 	{
@@ -42,7 +44,10 @@ if (isset($_POST['rem_btn']))
 <meta charset="utf-8">
 <title>View Patient Record</title>
 <link href="../css/view_patient_record.css" rel="stylesheet" type="text/css">
-<script src="../lib/view_pat.js" type="text/javascript"></script>
+<script src="../jQueryAssets/js/jquery.min.js"></script>        
+<link rel="stylesheet" href="../jQueryAssets/js_css/jquery-ui.css" /> 
+<script src="../jQueryAssets/js/jquery-ui.min.js"></script>‌​
+<script type="text/javascript" src="../jQueryAssets/js/view_pat.js"></script>‌​
 <script src="../jQueryAssets/datepicker/jquery-1.8.3.min.js"></script>
 
 <script>
@@ -82,23 +87,22 @@ $(document).ready(function() {
 </head>
 
 <body onLoad="getfocus()">
-<input type="button" class="home" value="" onClick="<?php if($_SESSION['login_type']=="Doctor") { ?>location.href='../doctor_home.php' <?php } else { ?> location.href='../home.php'<?php } ?>">
+<input type="button" class="home" value="" onClick="<?php if($_SESSION['login_type']=="Doctor") { ?>location.href='../doctor_home.php' <?php } else if($_SESSION['login_type']=="labadmin") { ?>location.href='../lab_admin_home.php' <?php } else { ?> location.href='../home.php'<?php } ?>">
 <input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 
 <div id="search_bar">
 	<form method="post" action="view_record.php">
 	<span class="search_by">
-		<span>Id &nbsp;&nbsp;&nbsp;<input type="text" id="pat_id" name="pat_id" onchange="get_patient_by_id()" value="<?php echo $pid;?>" autofocus></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span>Name &nbsp;&nbsp;&nbsp;<input type="text" name="pat_name" id="pat_name" onchange="get_patient_by_name()" value="<?php echo $pname ?>"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<span>Dependent&nbsp;&nbsp;&nbsp; <input type="text" id="pat_dep"></span>
+		<span>Id &nbsp;&nbsp;&nbsp;<input type="text" id="pat_id" name="pat_id" onchange="get_patient_by_id()" value="<?php echo $pid;?>" autofocus onfocus="var val=this.value; this.value=''; this.value= val;"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>Name &nbsp;&nbsp;&nbsp;<input type="text" name="pat_name" id="pat_name" oninput="get_patient_by_name()" value="<?php echo $pname ?>"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<span>Dependent&nbsp;&nbsp;&nbsp; <input type="text" id="pat_dep" onblur="get_patient_by_dependent()" value="<?php echo $_SESSION['dependent']; ?>"></span>
 	<div class="hidden">
-		<input type="submit" value="View Record" name="view_button" id="view_button" style='background-color:white;color:#00A212;font-family: "Times New Roman", Times, serif;'>
+		<input type="submit" value="View Record" name="view_button" id="view_button" style='background-color:#4AAA00;'>
 	</span>
 	<div id="hidden_fields">
 			Sex: <span class="hidden_items" id="sex"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			Age: <span class="hidden_items" id="age"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			DOB: <span class="hidden_items" id="DOB"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Blood: <span class="hidden_items" id="blood"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			Phone: <span class="hidden_items" id="Phone"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			Address: <span class="hidden_items" id="addr"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
@@ -110,7 +114,7 @@ $(document).ready(function() {
 
 <div id="pat_record" class="hidden_records" style="visibility:visible">
 <?php
-	if ($_SESSION['login_type']=="Doctor") 
+	if (($_SESSION['login_type']=="Doctor") or ($_SESSION['login_type']=="labadmin")) 
 	{
 ?>
 		<div id="remark_form" style="position:absolute;left:20%;">
@@ -137,7 +141,7 @@ $(document).ready(function() {
 	<tbody>
 	
 <?php
-	$result = mysqli_query($conn, "SELECT * FROM consultation WHERE (PatientId='$pid');");
+	$result = mysqli_query($conn, "SELECT * FROM consultation WHERE (PatientId='$pid' and Dependent='{$_SESSION['dependent']}') ;");
 	while($row = mysqli_fetch_array($result)) 
 	{
 ?>
@@ -172,7 +176,7 @@ $(document).ready(function() {
 	<tbody>
 	
 <?php
-	$result = mysqli_query($conn, "SELECT * FROM Medical_Certificate WHERE (RollNo='$pid');");
+	$result = mysqli_query($conn, "SELECT * FROM Medical_Certificate WHERE (RollNo='$pid' and Dependent='{$_SESSION['dependent']}');");
 	while($row = mysqli_fetch_array($result)) 
 	{
 ?>
@@ -198,12 +202,13 @@ $(document).ready(function() {
 		<tr id="remarks_head">		
 			<th>Date</th>
 			<th>Remark</th>
+			<th>Entered by</th>
 		</tr>
 	</thead>	
 	<tbody>
 	
 <?php
-	$result = mysqli_query($conn, "SELECT * FROM Remarks WHERE (Pat_Id='$pid');");
+	$result = mysqli_query($conn, "SELECT * FROM Remarks WHERE (Pat_Id='$pid' and Dep_Name='{$_SESSION['dependent']}');");
 	while($row = mysqli_fetch_array($result)) 
 	{
 ?>
@@ -211,6 +216,7 @@ $(document).ready(function() {
 			<form action="" method="post">
 				<td id="rem_date"><center><?php echo $row['Date'];?></center></td>
 				<td id="doc_remark"><center><?php echo $row['Remark'];?></center></td>
+				<td id="entered_by"><center><?php echo $row['Entered_By'];?></center></td>
 			</form>
 		</tr>
 		

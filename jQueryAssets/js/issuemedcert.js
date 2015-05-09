@@ -16,34 +16,40 @@ xmlhttp.send();
 }
 
 function get_patient_by_id() {
-	var p_id=$("#Patient_Id").val();
+	var p_id=$("input:text[name=RollNo]").val();
 	if(p_id == "") {return;};
-	//alert("ajax_pat_mod.php?q="+p_id);
+//	alert("ajax_pat_mod.php?q="+p_id);
 	loadXMLDoc("../lib/ajax_pat_mod.php?id="+p_id,function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			var x=xmlhttp.responseText;
-			//alert(x);
+//			alert(x);
 			var arr = x.split("!+!");
 			if( arr[0] == 1) {
-				$("#Name").val(arr[1]);
-				$("#Dependent").val(arr[2]);
-		//		alert(arr[3]);
-				if(arr[3]=="Male") $("#Sex").val("M");
-				else $("#Sex").val("F");
-				$("input:text[name=Age]").val(arr[4]);
-				$("#Dependent").autocomplete('disable');	
+				$("input:text[name=Name]").val(arr[1]);
+				$("input:text[name=Dependent]").val(arr[2]);
+				$("input:text[name=Dependent]").autocomplete('disable');	
 			}
 			else if( arr[0] == 2){
-				$("#Name").val(arr[1]);
-				$("#Dependent").val("");
-				if(arr[2]=="Male") $("#Sex").val("M");
-				else $("#Sex").val("F");
-				$("input:text[name=Age]").val(arr[3]);
+				$("input:text[name=Name]").val(arr[1]);
+				$("input:text[name=Dependent]").val("");
 				var dependents = arr.slice(9);
-			//	alert(dependents);
-				$('#Dependent').autocomplete({
+				//alert(dependents);
+				$("input:text[name=Dependent]").autocomplete({
+					source:dependents,
+					minLength: 0,
+					scroll:true
+				}).focus(function() {
+					$(this).autocomplete("search","");
+				});
+			}
+			else if( arr[0] == 3){
+				$("input:text[name=Name]").val(arr[1]);
+				$("input:text[name=Dependent]").val("");
+				var dependents = arr.slice(2);
+				//alert(dependents);
+				$("input:text[name=Dependent]").autocomplete({
 					source:dependents,
 					minLength: 0,
 					scroll:true
@@ -53,25 +59,21 @@ function get_patient_by_id() {
 			}
 			else {
 				alert("This patient id doesn't exist!! To add a new user goto Add Patient!!");
-				$("#Name").val("");
-				$("#Dependent").val("");
-				$("#Sex").val("");
-				$("input:text[name=Age]").val("");
+				$("input:text[name=Name]").val("");
+				$("input:text[name=Dependent]").val("");
 			}
 		}
 	});
 }
 
 function get_patient_by_name() {
-	var name=$("#Name").val();
+	var name=$("input:text[name=Name]").val();
 	if(name=="") {return;}
 	//alert("ajax_pat_mod.php?name="+name);
 	loadXMLDoc("../lib/ajax_pat_mod.php?name="+name,function()
 	{
-		$("#Patient_Id").val("");
-		$("#Dependent").val("");
-		$("#Sex").val("");
-		$("input:text[name=Age]").val("");
+		$("input:text[name=RollNo]").val("");
+		$("input:text[name=Dependent]").val("");
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			var x=xmlhttp.responseText;
@@ -80,18 +82,36 @@ function get_patient_by_name() {
 		//	alert(out[0] + " " +out[1]);
 			var arr = out[0].split("!+!");
 			var dependent = out[1].split("!+!");
-			if( arr[0] == 1) {
-				$("#Patient_Id").val(arr[1]);
-				$("#Dependent").val(arr[2]);
-				if(arr[3]=="Male") $("#Sex").val("M");
-				else $("#Sex").val("F");
-				$("input:text[name=Age]").val(arr[4]);
+			if( arr[0] == "1") {
+				$("input:text[name=RollNo]").val(arr[1]);
+				$("input:text[name=Dependent]").val(arr[2]);
 			}
-			else if( arr[0] == 2){
+			else if( arr[0] == "2"){
 				document.getElementsByName('Name')[0].setAttribute("value",arr[1]);
 				var names = arr.slice(1);
 				alert(names);
-				$('#Name').autocomplete({
+				var i;
+				var ind=0;
+				var name=names[0];
+				for(i=1;i<names.length;i++) {
+					if(names[i]!=name) {
+						var j;
+						for(j=ind+1;j<i;j++) {
+							names.splice(index, j);
+						}
+						ind=i;
+						name=names[i];
+					}
+				}
+				if(names[i]!=name) {
+					var j;
+					for(j=ind+1;j<i;j++) {
+						names.splice(index, j);
+					}
+				}
+				
+				alert(names);
+				$("input:text[name=Name]").autocomplete({
 					source:names,
 					minLength: 0,
 					scroll:true
@@ -99,7 +119,7 @@ function get_patient_by_name() {
 					$(this).autocomplete("search","");
 				});
 				$dependent = $dependent.slice(1);
-				$('#Dependent').autocomplete({
+				$("input:text[name=Dependent]").autocomplete({
 					source:dependent,
 					minLength: 0,
 					scroll:true
@@ -109,34 +129,26 @@ function get_patient_by_name() {
 			}
 			else {
 				alert("This patient name doesn't exist!! To add a new user goto Add Patient!!");
-				$("#Patient_Id").val("");
-				$("#Dependent").val("");
-				$("#Sex").val("");
-				$("input:text[name=Age]").val("");
+				$("input:text[name=RollNo]").val("");
+				$("input:text[name=Dependent]").val("");
 			}
 		}
 	});
 } 
 
 function get_patient_by_dependent() {
-	var dependent=$("#Dependent").val();
-	var pid=$("#Patient_Id").val();
+	var dependent=$("input:text[name=Dependent]").val();
+	var pid=$("input:text[name=RollNo]").val();
 //	if(dependent=="") {return;}
 //	alert("../lib/ajax_pat_mod.php?dependent=" + dependent + "&pid=" + pid);
 	loadXMLDoc("../lib/ajax_pat_mod.php?dependent=" + dependent + "&pid=" + pid,function()
 	{
-		$("input:text[name=Age]").val("");
-		$("#Sex").val("");
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			var x=xmlhttp.responseText;
-	//		alert(x + "11");
+		//	alert(x + "11");
 			var arr = x.split("!+!");
-			if( arr[0] == 1) {
-				if(arr[1]=="Male") $("#Sex").val("M");
-				else $("#Sex").val("F");
-				$("input:text[name=Age]").val(arr[2]);
-				
+			if( arr[0] == "1") {
 			}
 			else {
 				alert("This dependent name  doesn't exist!! To add a new user goto Add Patient!!");

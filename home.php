@@ -38,6 +38,7 @@ $min_qty = 10;
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="images/cross.png" type="image/gif" sizes="16x16"> 
 <title><?php echo $_SESSION['login_type']; ?> Home Page</title>
 <link href="css/admin_home.css" rel="stylesheet" type="text/css">
 </head>
@@ -76,7 +77,7 @@ $min_qty = 10;
   </tbody>
 </table>
 </div>
-<input type="button" class="issue_med" value="Issue Medicine" onClick="location.href='features/issue_medicine.php'">
+<input type="button" class="issue_med" value="Issue Medicine" onClick="location.href='features/issue_med.php'">
 
 <div id="profile_settings">
 <table width="150" height "500" border="0" cellpadding="0" cellspacing="6">
@@ -88,7 +89,10 @@ $min_qty = 10;
       <td><input type="button" class="button" value="Update Profile" onClick="location.href='features/update_profile_admin.php'"></td>
     </tr>
     <tr>
-      <td><input type="button" class="button" value="Add doctor" onClick="location.href='features/add_doctor.php'"></td>
+      <td><input type="button" class="button" value="Add Doctor" onClick="location.href='features/add_doctor.php'"></td>
+    </tr>
+    <tr>
+      <td><input type="button" class="button" value="Add Lab Admin" onClick="location.href='features/add_lab_admin.php'"></td>
     </tr>
   </tbody>
 </table>
@@ -110,7 +114,7 @@ $min_qty = 10;
 		$med_name= $row['MedicineName'];
 		$exp = date("Y/m/d",strtotime($row['Expiry']));
 		$pcount=$pcount+1;
-		$scroll_text = $scroll_text."<a href='features/remove_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".date("d/m/Y",strtotime($row['Expiry']))."</a> | ";
+		$scroll_text = $scroll_text."<a href='features/remove_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Expiry alert : ".$row['MedicineName']." ".$row['BatchNo']." ".date("d/m/Y",strtotime($row['Expiry']))."</a>&nbsp; | &nbsp; ";
 	}
 	
 // Out of Stock Alert
@@ -123,13 +127,14 @@ $min_qty = 10;
 		$qty = $qty_row['quantity'];
 		if ($qty < $min_qty)
 		{
-			$scroll_text = $scroll_text."<a href='features/view_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Out of Stock : ".$med_name." - ".$qty." left </a> | ";
+			$scroll_text = $scroll_text."<a href='features/view_stock.php?q=$med_name' style='text-decoration: none;color:red;'>Out of Stock : ".$med_name." - ".$qty." left </a>&nbsp; |&nbsp; ";
 			$pcount=$pcount+1;
 		}
 	}
 	$pcount=$pcount*6;
-	echo "<p style=\"animation: left-one ".$pcount."s linear infinite;\">".$scroll_text."</p>";
+	//echo "<p style=\"animation: left-one ".$pcount."s linear infinite;\">".$scroll_text."</p>";
 ?>
+	<marquee onmouseover="this.setAttribute('scrollamount', 0, 0);this.stop();" onmouseout="this.setAttribute('scrollamount', 6, 0);this.start();"><a href="features/view_stock" style="text-decoration: none"><font color="#850303" face="times"><?php echo $scroll_text; ?></font></a></marquee>
 </div>
 </body>
 </html>	

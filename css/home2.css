@@ -1,0 +1,151 @@
+body {
+	background-image: url(../images/header.jpg);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-repeat:no-repeat;
+	background-color:#1b1b1b;
+}
+
+.issue_med {
+	font-size: 28px;
+	background: #4AAA00;
+	background: -moz-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#5CCD00),color-stop(100%,#4AA400));
+	background: -webkit-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background: -o-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background: -ms-linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	background: linear-gradient(top,#5CCD00 0%,#4AA400 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#5CCD00', endColorstr='#4AA400',GradientType=0);
+	padding: 16px 55px;
+	color: #fff;
+	font-family: 'Helvetica Neue',sans-serif;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #459A00;
+	position: absolute;
+	top: 44%;
+	left: 48%;
+}
+
+.issue_med:hover {
+	background: #6DEF11;
+}
+
+.issue_med:active {
+	border: 1;
+	background: #1b1b1b;
+}
+
+.button {
+	background:-moz-linear-gradient(top,#262626 0%,#262626 100%);
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#262626),color-stop(100%,#262626));
+	background:-webkit-linear-gradient(top,#262626 0%,#262626 100%);
+	background:-o-linear-gradient(top,#262626 0%,#262626 100%);
+	background:-ms-linear-gradient(top,#262626 0%,#262626 100%);
+	background:linear-gradient(top,#262626 0%,#262626 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#262626', endColorstr='#262626',GradientType=0);
+	padding:1px 5px;
+	color:#0f0;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:20px;
+	width:220px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #262626;
+}
+
+#button_table {
+	position: absolute;
+	top: 24%;
+	left: 12%;	
+}
+
+.button:hover {
+	background:#373737; 
+}
+
+.button:onclick {
+		
+}
+
+#button_table td {
+	text-align:center;
+	color:#FFFFFF;
+	font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+	font-size:30px;
+}
+#error_log{
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	resize: none;
+	top: 40%;
+}
+
+#profile_settings {
+	position:absolute;
+	top: 113px;
+	left: 1110px;	
+}
+
+.update_prof {
+	font-size: 20px;
+	background: #f00;
+	background: -moz-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f00),color-stop(100%,#4AA400));
+	background: -webkit-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: -o-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: -ms-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: linear-gradient(top,#f00 0%,#4AA400 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f00', endColorstr='#4AA400',GradientType=0);
+	padding: 1px 35px;
+	color: #fff;
+	font-family: 'Helvetica Neue',sans-serif;
+	border-radius: 2px;
+	font-size:20px;
+ 	width:220px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #459A00;
+}
+
+#profile_settings td {
+	text-align:center;
+	color:#fff;
+	font-size:20px;
+	font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+}
+
+.logout {
+	background-image: url(../images/logout.jpg);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	width:110px;
+	height:25px;
+	position:absolute;
+	top: 38px;
+	left: 1160px;
+	color: #fff;
+	text-align:center;
+	font-size:16px;
+	padding: 0px 0px 0px 14px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #459A00;
+}
+
+#alert_bar
+{
+	color:red;
+	font-size:20px;
+	background-color: #262626;
+	position: relative;
+	top: 500px;
+}

@@ -6,7 +6,7 @@ include ('../lib/configure.php');
 session_start();
 if(isset($_SESSION['login_type']))
 {
-	if ($_SESSION['login_type']=="doctor") 
+	if ($_SESSION['login_type']=="Doctor") 
 	{
 		header("location: ../doctor_home.php");
 	}
@@ -44,9 +44,17 @@ if($count==1)
 {
 	if ($mynewpw == "") $mynewpw = $pw;
 	else $mynewpw=sha1($mynewpw);
-	if ($myans1 == "") $row['Ans1'];
+	if ($myans1 == "")
+	{
+	 $myans1 = $row['Ans1'];
+	 $mysec1 = $row['SecQn1'];
+	}
 	else $myans1 = sha1($myans1);
-	if ($myans2 == "") $row['Ans2'];
+	if ($myans2 == "")
+	{
+	 $myans2 = $row['Ans2'];
+	 $mysec2 = $row['SecQn2'];
+	}
 	else $myans2 = sha1($myans2);
 	$sql="UPDATE users SET Name='$myname', UserName='$myusername', Password='$mynewpw', SecQn1='$mysec1', Ans1='$myans1', SecQn2='$mysec2', Ans2='$myans2', Type='admin' WHERE (UserName='$user' AND Password='$pw')";
 	$result=mysqli_query($conn, $sql);

@@ -15,6 +15,7 @@ else {
 <head>
 <meta charset="utf-8">
 <title>Remove Stock</title>
+<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <!--CSS-->
 <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> 
 
@@ -63,8 +64,9 @@ Remove Stock:-
 		<?php
 			if(isset($_POST['remove']))
 			 {
-				$result = mysqli_query($conn, "SELECT `Qty` from medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}');");       //primary key is med name+ batch no.
+				$result = mysqli_query($conn, "SELECT `Qty`,`Cost` from medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}' AND MedicineName='{$_POST['MedicineName']}');");       //primary key is med name+ batch no.
 				$qty=mysqli_fetch_array($result);
+				$cst=$qty['Cost'];
 				$qty=$qty['Qty'];
 				if($_POST['Qty'] > $qty) 
 				{
@@ -75,23 +77,26 @@ Remove Stock:-
 					//populating Transactions table
 					$result=mysqli_query($conn, "SELECT * FROM medicine_stock WHERE (BatchNo= '{$_POST['BatchNo']}' AND MedicineName='{$_POST['MedicineName']}' );");
 					$cur_date = date("Y-m-d");
-					while($row = mysqli_fetch_array($result))
-					{
+					$row = mysqli_fetch_array($result);
+					//while($row = mysqli_fetch_array($result))
+					//{
 					$dt = $row['Date'];
 					$bno = $row['BatchNo'];
 					$rcvfrm = $row['RecievedFrom'];
 					$md_nm = $row['MedicineName'];
 					$btch_no = $row['BatchNo'];
-					$exp = $row['Expiry'];
+					$exp = date("Y-m-d",strtotime($row['Expiry']));
 					$qnt = $_POST['Qty'];
-					$cst = $row['Cost'];
-					$result=mysqli_query($conn, "INSERT INTO Transactions VALUES ('Removal', '{$cur_date}', '{$dt}', '{$bno}', '{$rcvfrm}', '{$md_nm}', '{$btch_no}', '{$exp}', '{$qnt}', '{$cst}');"); 
-					}	
+					$percst=$cst/$qty;
+					$newcostt=$qnt*$percst;
+					$result=mysqli_query($conn, "INSERT INTO Transactions VALUES ('Removal', '{$cur_date}', '{$dt}', '{$bno}', '{$rcvfrm}', '{$md_nm}', '{$btch_no}', '{$exp}', '{$qnt}', '{$newcostt}');"); 
+					//}	
 					$qty=$qty-$_POST['Qty'];
-					if($qty==0) {mysqli_query($conn, "DELETE FROM medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}');");}
+					$newcostt=$qty*$percst;
+					if($qty==0) {mysqli_query($conn, "DELETE FROM medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}'AND MedicineName='{$_POST['MedicineName']}' );");}
 					else 
 					{
-						mysqli_query($conn, "UPDATE medicine_stock SET `Qty`='{$qty}' WHERE (`BatchNo`='{$_POST['BatchNo']}');");
+						mysqli_query($conn, "UPDATE medicine_stock SET `Qty`='{$qty}', `Cost`='{$newcostt}' WHERE (`BatchNo`='{$_POST['BatchNo']}' AND MedicineName='{$_POST['MedicineName']}' );");
 					}
 				}
 				else

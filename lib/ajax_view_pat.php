@@ -1,11 +1,11 @@
 <?php
 	include ('../lib/configure.php');
 	session_start();
-	if(isset($_SESSION['login_user']))
+	if(isset($_SESSION['login_type']))
 	{
-		if ($_SESSION['login_user']=="doctor") 
+		if (!(($_SESSION['login_type']=="Doctor")or($_SESSION['login_type']=="admin") or ($_SESSION['login_type']=="labadmin"))) 
 		{
-			header("location: ../doctor_home.php");
+			header("location: ../index.php");
 		}
 	}
 	else 
@@ -13,7 +13,8 @@
 		header("location: ../index.php");
 	}
 	
-	if(isset($_GET['id'])) {
+	if(isset($_GET['id'])) 
+	{
 		$id=$_GET['id'];
 		//echo $q;
 		$sql="SELECT * from patient where Patient_Id = '{$id}'";
@@ -62,11 +63,27 @@
 			$text="1!+!" . $row['Patient_Id'] . "!+!" . $row['Dependent'] . "!+!" . $row['Sex'] . "!+!" . $row['Age'] . "!+!" . $row['Ph.No'] . "!+!" . $row['Alt.Ph.No'] . "!+!" . $row['DOB'] . "!+!" . $row['PermanentAddress'] . "!+!" . $row['LocalAddress'];
 		}
 		else {									
-			$text="2!+!";
+			$row = mysqli_fetch_array($query);
+			$text="2!+!" . $row['Name'];
 			while($row = mysqli_fetch_array($query)) {
 				$text = $text . "!+!" . $row['Name'];
+				if($row['Dependent'] !="") {$dependent .= "!+!" . $row['Dependent'];}
 			}
 		}
+		echo $text . "@+@" . $dependent;
+	}
+	else if(isset($_GET['dependent']) && isset($_GET['pid'])) {
+		$dependent=$_GET['dependent'];
+		$pid=$_GET['pid'];
+		$sql="SELECT * from patient where Patient_Id = '{$pid}' and Dependent = '{$dependent}'";
+		$query=mysqli_query($conn,$sql);
+		$text="";
+		$count = mysqli_num_rows($query);
+		$row = mysqli_fetch_array($query);
+		if($count==1) {
+			$text="1!+!" . $row['Sex'] . "!+!" . $row['Age'] . "!+!" . $row['Ph.No'] . "!+!" . $row['Alt.Ph.No'] . "!+!" . $row['DOB'] . "!+!" . $row['PermanentAddress'] . "!+!" . $row['LocalAddress'];
+		}
+		else $text= "0";
 		echo $text;
 	}
 ?>

@@ -29,7 +29,7 @@ $myans2 = $_POST['ans2'];
 
 $sql="SELECT * FROM users WHERE (UserName='$user' and Password='$pw');";
 $result=mysqli_query($conn, $sql);
-
+$row = mysqli_fetch_array($result);
 
 // Mysql_num_row is counting table row
 $count=mysqli_num_rows($result);
@@ -38,13 +38,23 @@ $count=mysqli_num_rows($result);
 
 if($count==1)
 {
-	if ($mynewpw == "")
+	if ($mynewpw == "")$mynewpw = $pw;
+	else $mynewpw=sha1($mynewpw);
+	if ($myans1 == "")
 	{
-		$mynewpw = $pw;
+	 $myans1 = $row['Ans1'];
+	 $mysec1 = $row['SecQn1'];
 	}
-	$sql="UPDATE users SET Name='$myname', UserName='$myusername', Password='$mynewpw', SecQn1='$mysec1', Ans1='$myans1', SecQn2='$mysec2', Ans2='$myans2', Type='admin' WHERE (UserName='$user' AND Password='$pw')";
+	else $myans1 = sha1($myans1);
+	if ($myans2 == "")
+	{
+	 $myans2 = $row['Ans2'];
+	 $mysec2 = $row['SecQn2'];
+	}
+	else $myans2 = sha1($myans2);
+	$sql="UPDATE users SET Name='$myname', UserName='$myusername', Password='$mynewpw', SecQn1='$mysec1', Ans1='$myans1', SecQn2='$mysec2', Ans2='$myans2', Type='Doctor' WHERE (UserName='$user' AND Password='$pw')";
 	$result=mysqli_query($conn, $sql);
-	header("location: update_profile_admin.php?q=Success");
+	header("location: doctor_update_profile.php?q=Success");
 }
-else	header("location: update_profile_admin.php?q=Incorrect Password");
+else	header("location: doctor_update_profile.php?q=Incorrect Password");
 ?>

@@ -6,6 +6,7 @@ html, body {
 	background-size: cover;
 	background-repeat:no-repeat;
 	background-color:#1b1b1b;
+	font : 90%/1.45em "Helvetica Neue",HelveticaNeue,Arial,Helvetica,sans-serif;
 }
 
 .home {
@@ -25,10 +26,14 @@ html, body {
 
 #datatable4 {
 	position: absolute;
-	top: 458px;
-	width:97%;
+	top: 408px;
+	width:95%;
 	font-size:16px;
-	margin-left:15px;
+	left:5px;
+}
+
+#data td {
+	color: #000;
 }
 
 #issue_med_form {
@@ -38,21 +43,24 @@ html, body {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	left: 80px;
+	left: 50px;
 	top: 131px;
-	z-index: 2;
+} 
+
+#hidden {
+	display: none;
 }
+
 
 #f1 {
 	font-size: 20px;
 	color: rgb(255, 198, 2);
-	line-height: 200%;
+	line-height: 300%;
 	text-align: left;
 	position: absolute;
 	left: 31px;
 	top: 43px;
-	z-index: 2;
-	width: 1053px;
+	width: 100%;
 	height: 320px;
 }
 
@@ -64,7 +72,6 @@ html, body {
 	position: absolute;
 	left: 31px;
 	top: 173px;
-	z-index: 2;
 	width: 1053px;
 	height: 320px;
 }
@@ -214,6 +221,7 @@ input[name="submit"] {
 	-webkit-border-radius: 5px;
 	border: 1px solid #459A00;
 	position : absolute;
-	top:42px;
+	top:72px;
 	left: 23%;
+	z-index:999;
 }

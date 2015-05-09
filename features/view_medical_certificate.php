@@ -76,7 +76,7 @@ View Medical Certificate
 	<thead>
 		<tr id="datatable2">	
 		<th>Sl No</th>	
-		<th>Date</th>
+		<th>Issue Date</th>
 		<th>Name</th>
 		<th>Type</th>
 		<th>Patient ID</th>
@@ -104,11 +104,11 @@ View Medical Certificate
 		<tr>
 			<form action="" method="post">
 				<td><center><?php echo $row['CftNo'];?></center></td>
-				<td><center><?php echo $row['IssueDate'];?></center></td>
+				<td><center><?php echo date("d-m-Y",strtotime($row['IssueDate']));?></center></td>
 				<td><center><?php echo $row['Name'];?></center></td>
 				<td><center><?php echo $row['PatientType'];?></center></td>
 				<td><center><?php echo $row['RollNo'];?></center></td>
-				<td><center><?php echo $row['FromDate'];?></center></td>
+				<td><center><?php echo date("d-m-Y",strtotime($row['FromDate']));?></center></td>
 				<td><center><?php echo $row['NoOfDays'];?></center></td>
 				<td><center><?php echo $row['Cause'];?></center></td>
 				<td><center><?php echo $row['Doctor'];?></center></td>

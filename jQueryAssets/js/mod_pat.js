@@ -26,7 +26,7 @@ function get_patient_by_id() {
 			var x=xmlhttp.responseText;
 			//alert(x);
 			var arr = x.split("!+!");
-			if( arr[0] == "1") {
+			if( arr[0] == 1) {
 				$("#Name").val(arr[1]);
 				$("#Dependent").val(arr[2]);
 			//	alert(arr[3]);
@@ -40,7 +40,7 @@ function get_patient_by_id() {
 				$("textarea[name=Local_Address]").val(arr[9]);
 				$("#Dependent").autocomplete('disable');	
 			}
-			else if( arr[0] == "2"){
+			else if( arr[0] == 2){
 				$("#Name").val(arr[1]);
 				$("#Dependent").val("");
 				if(arr[2]=="Female") {$( "#F" ).prop("checked", true);} else {$( "#M" ).prop("checked", true);}
@@ -51,6 +51,26 @@ function get_patient_by_id() {
 				$("textarea[name=Permanent_Address]").val(arr[7]);
 				$("textarea[name=Local_Address]").val(arr[8]);
 				var dependents = arr.slice(9);
+				//alert(dependents);
+				$('#Dependent').autocomplete({
+					source:dependents,
+					minLength: 0,
+					scroll:true
+				}).focus(function() {
+					$(this).autocomplete("search","");
+				});
+			}
+			else if( arr[0] == 3){
+				$("#Name").val(arr[1]);
+				$("#Dependent").val("");
+				//if(arr[2]=="Female") {$( "#F" ).prop("checked", true);} else {$( "#M" ).prop("checked", true);}
+				$("input:text[name=Age]").val("");
+				$("input:text[name=Ph_No]").val("");
+				$("input:text[name=AltPh_No]").val("");
+				$("input:text[name=DOB]").val("");
+				$("textarea[name=Permanent_Address]").val("");
+				$("textarea[name=Local_Address]").val("");
+				var dependents = arr.slice(2);
 				//alert(dependents);
 				$('#Dependent').autocomplete({
 					source:dependents,
@@ -98,7 +118,7 @@ function get_patient_by_name() {
 		//	alert(out[0] + " " +out[1]);
 			var arr = out[0].split("!+!");
 			var dependent = out[1].split("!+!");
-			if( arr[0] == "1") {
+			if( arr[0] == 1) {
 				$("#Patient_Id").val(arr[1]);
 				$("#Dependent").val(arr[2]);
 				if(arr[3]=="Female") {$( "input:radio[id=F]:checked" ).val(true);} else {$( "input:radio[id=M]:checked" ).val(true);}
@@ -110,10 +130,31 @@ function get_patient_by_name() {
 				$("textarea[name=Permanent_Address]").val(arr[8]);
 				$("textarea[name=Local_Address]").val(arr[9]);
 			}
-			else if( arr[0] == "2"){
+			else if( arr[0] == 2){
 				document.getElementsByName('Name')[0].setAttribute("value",arr[1]);
 				var names = arr.slice(1);
-		//		alert(names);
+				alert(names);
+				var i;
+				var ind=0;
+				var name=names[0];
+				for(i=1;i<names.length;i++) {
+					if(names[i]!=name) {
+						var j;
+						for(j=ind+1;j<i;j++) {
+							names.splice(index, j);
+						}
+						ind=i;
+						name=names[i];
+					}
+				}
+				if(names[i]!=name) {
+					var j;
+					for(j=ind+1;j<i;j++) {
+						names.splice(index, j);
+					}
+				}
+				
+				alert(names);
 				$('#Name').autocomplete({
 					source:names,
 					minLength: 0,
@@ -163,7 +204,7 @@ function get_patient_by_dependent() {
 			var x=xmlhttp.responseText;
 		//	alert(x + "11");
 			var arr = x.split("!+!");
-			if( arr[0] == "1") {
+			if( arr[0] == 1) {
 				if(arr[1]=="Female") {$( "input:radio[id=F]:checked" ).val(true);} else {$( "input:radio[id=M]:checked" ).val(true);}
 				$("input:text[name=Age]").val(arr[2]);
 				$("input:text[name=Ph_No]").val(arr[3]);

@@ -25,7 +25,7 @@ if (!$_SESSION['temp_stat']==1) $_SESSION['item']=0;
 <head>
 <meta charset="utf-8">
 <title>Add Stock</title>
-
+<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <!--CSS-->
 <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> 
 
@@ -74,29 +74,30 @@ Add Stock:-
 <?php
 if(isset($_POST['insert']))
 {
-	if (isset($_POST['Date']))
+	if (($_POST['Medicine'] != "") and ($_POST['BatchNo'] != "") and ($_POST['Date'] != "") and ($_POST['Qty']!="") and (is_numeric($_POST['Qty'])) and ($_POST['Qty'])>0)
 	{
 		$date=date("Y-m-d", strtotime($_POST['Date']));
-	}
-	else 
-		$date=date("Y-m-d");
-	if (isset($_POST['Expiry']))
-		$expiry=date("Y-m-d", strtotime($_POST['Expiry']));
-	else 
-		$expiry=date("Y-m-d", strtotime("3000-01-01"));
+		if ($_POST['Expiry'] != "")
+			$expiry=date("Y-m-d", strtotime($_POST['Expiry']));
+		else 
+			$expiry=date("Y-m-d", strtotime("+8 years"));
 		
-	$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";
-	if ($conn->query($sql) == TRUE)
-	 {
-		$_SESSION['item']++;
-		$_SESSION['temp_stat']=1;
-	 }
+		$sql = "INSERT INTO temp_medicine_stock VALUES ('{$date}','{$_POST['BillNo']}','{$_POST['ReceivedFrom']}','{$_POST['Medicine']}','{$_POST['BatchNo']}','{$expiry}','{$_POST['Qty']}','{$_POST['Cost']}');";
+		if ($conn->query($sql) == TRUE)
+		{
+			$_SESSION['item']++;
+			$_SESSION['temp_stat']=1;
+		}
+		else {?>
+			 <script>alert("Medicine with same name and batch no exists")</script>
+			<?php
+		}
+	}
 	else
 	{
-		echo "Error: " . $sql . "<br>" . $conn->error;
+		echo "<script>alert('Batch No, Medicine Name, Purchase Date and Quantity fields are required. Quantity should be a positive number')</script>";
 	}
-
-}
+} 
 
 ?>
 
@@ -107,7 +108,7 @@ if(isset($_POST['insert']))
 		if($query)
 		{
 			//populating Transactions table
-			$result=mysqli_query($conn, "SELECT * FROM temp_medicine_stock ORDER BY MedicineName;");
+			$result=mysqli_query($conn, "SELECT * FROM temp_medicine_stock");
 			$cur_date = date("Y-m-d");
 			while($row = mysqli_fetch_array($result))
 			{
@@ -119,12 +120,12 @@ if(isset($_POST['insert']))
 				$exp = $row['Expiry'];
 				$qnt = $row['Qty'];
 				$cst = $row['Cost'];
-				$result=mysqli_query($conn, "INSERT INTO Transactions VALUES ('Addition', '{$cur_date}', '{$dt}', '{$bno}', '{$rcvfrm}', '{$md_nm}', '{$btch_no}', '{$exp}', '{$qnt}', '{$cst}');"); 
+				$Q=mysqli_query($conn, "INSERT INTO Transactions VALUES ('Addition', '{$cur_date}', '{$dt}', '{$bno}', '{$rcvfrm}', '{$md_nm}', '{$btch_no}', '{$exp}', '{$qnt}', '{$cst}');"); 
 			}	
 			//removing temporary stock
 			mysqli_query($conn, "DELETE FROM temp_medicine_stock");
 			?>
-			<script>alert("<?php echo $_SESSION['item']; ?> items added to stock.")</script>
+			<script>alert("<?php echo $_SESSION['item']; ?> item(s) added to stock.")</script>
 			<?php
 		}
 		else {?>
@@ -176,7 +177,7 @@ if(isset($_POST['insert']))
 <table id="data" class="display">
 	<thead>
 		<tr id="datatable2">		
-			<th>Date</th>
+			<th>Purchase Date</th>
 			<th>Bill No</th>
 			<th>Received From</th>
 			<th>Medicine Name</th>
@@ -191,8 +192,8 @@ if(isset($_POST['insert']))
 		<?php
 			if(isset($_POST['delete'])) 
 			{
-				mysqli_query($conn, "DELETE FROM temp_medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}' AND `MedicineName`='{$_POST['Medicine']}');");
-				$item--;
+				mysqli_query($conn, "DELETE FROM temp_medicine_stock WHERE (`BatchNo`='{$_POST['BatchNo']}' AND `MedicineName`='{$_POST['MedicineName']}');");
+				$_SESSION['item']--;
 			}
 			$result = mysqli_query($conn, "SELECT * from temp_medicine_stock");
 			while($row = mysqli_fetch_array($result)) {
@@ -202,7 +203,7 @@ if(isset($_POST['insert']))
 				<td><center><?php echo date("d/m/y",strtotime($row['Date']));?></center></td>
 				<td><center><?php echo $row['BillNo'];?></center></td>
 				<td><center><?php echo $row['RecievedFrom'];?></center></td>
-				<td><center><?php echo $row['MedicineName'];?></center></td>
+				<td><center><input type="hidden" name="MedicineName" value="<?php echo $row['MedicineName'];?>"><?php echo $row['MedicineName'];?></center></td>
 				<td><center><input type="hidden" name="BatchNo" value="<?php echo $row['BatchNo'];?>"><?php echo $row['BatchNo'];?></center></td>
 				<td><center><?php echo date("d/m/y",strtotime($row['Expiry']));?></center></td>
 				<td><center><?php echo $row['Qty'];?></center></td>

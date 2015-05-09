@@ -56,30 +56,91 @@ Update Patient Details :-
 		$_SESSION['pid']=$_POST['Patient_Id'];
 		$_SESSION['name']=$_POST['Name'];
 		$_SESSION['dependent']=$_POST['Dependent'];
+		if($_SESSION['pid']==NULL) {
+			header("location: ../features/modify_patient.php");
+		}
+		$sql="SELECT * FROM patient WHERE Patient_Id='{$_SESSION['pid']}' AND Name='{$_SESSION['name']}' AND Dependent='{$_SESSION['dependent']}';";
+		$q=mysqli_query($conn, $sql);
+		if(mysqli_num_rows($q)==0) {
+			?> <script> alert('The patient selected does not exist');
+			window.location.assign("../features/modify_patient.php");
+			</script> <?php
+		}
 	}
 	else if(!isset($_POST['update'])){
-		?> <script> alert('The patient selected does not exist');</script> <?php
-		header("location: ../features/modify_patient.php");
+		?> <script> alert('The patient selected does not exist');
+			window.location.assign("../features/modify_patient.php");
+			</script> <?php
 	}
 	if (isset($_POST['update'])) {
 		$date=date("Y-m-d", strtotime($_POST['DOB']));
 		?><script> //alert("<?php echo $_SESSION['pid']; ?>");
 		</script><?php  
-		$sql="UPDATE `patient` SET `Patient_Id`= '{$_POST['Patient_Id']}' , `Name`= '{$_POST['Name']}' , `Dependent`= '{$_POST['Dependent']}', `Sex`= '{$_POST['Sex']}', `Age`= '{$_POST['Age']}', `Ph.No`= '{$_POST['Ph_No']}', `Alt.Ph.No`= '{$_POST['AltPh_No']}', `DOB`= '{$date}', `PermanentAddress`= '{$_POST['Permanent_Address']}' , `LocalAddress`= '{$_POST['Local_Address']}' WHERE `Patient_Id` = '{$_SESSION['pid']}' AND `Name`='{$_SESSION['name']}' AND `Dependent`='{$_SESSION['dependent']}'";
-		if($conn->query($sql) == TRUE) {
-			?><script> alert("successfully updated"); 
-			window.location.assign("../features/modify_patient.php");
-			</script><?php
-			
+		$sql="SELECT * FROM patient WHERE `Patient_Id` = '{$_SESSION['pid']}';";
+		$query = mysqli_query($conn, $sql);
+		if($query) {
+			if(mysqli_num_rows($query)>1) {
+				if($_SESSION['dependent']!=NULL) {
+					if($_POST['Name'] != $_SESSION['name']) {
+					?><script> alert("A dependent cannot change name.");
+					</script><?php  
+					}
+					$sql="UPDATE `patient` SET `Dependent`= '{$_POST['Dependent']}', `Sex`= '{$_POST['Sex']}', `Age`= '{$_POST['Age']}', `Ph.No`= '{$_POST['Ph_No']}', `Alt.Ph.No`= '{$_POST['AltPh_No']}', `DOB`= '{$date}', `PermanentAddress`= '{$_POST['Permanent_Address']}' , `LocalAddress`= '{$_POST['Local_Address']}' WHERE `Patient_Id` = '{$_SESSION['pid']}' AND `Name`='{$_SESSION['name']}' AND `Dependent`='{$_SESSION['dependent']}'";
+					if($conn->query($sql) == TRUE) {
+						if($_POST['Name'] != $_SESSION['name']) {
+						?><script> alert("Successfully updated other updates except the Name.");
+						window.location.assign("../features/modify_patient.php");
+						</script><?php
+						}
+						?><script> alert("Successfully updated.");
+						window.location.assign("../features/modify_patient.php");
+						</script><?php
+					}
+					else {
+						?><script> alert("Could not update.."); </script><?php
+					}
+				}
+				else {
+					$sql="UPDATE `patient` SET `Name`= '{$_POST['Name']}'  WHERE `Patient_Id` = '{$_SESSION['pid']}' AND `Name`='{$_SESSION['name']}'";
+					if($conn->query($sql) == FALSE) {
+						?><script> alert("Could not update.."); </script><?php
+					}
+					else {
+						$sql="UPDATE `patient` SET `Dependent`= '{$_POST['Dependent']}', `Sex`= '{$_POST['Sex']}', `Age`= '{$_POST['Age']}', `Ph.No`= '{$_POST['Ph_No']}', `Alt.Ph.No`= '{$_POST['AltPh_No']}', `DOB`= '{$date}', `PermanentAddress`= '{$_POST['Permanent_Address']}' , `LocalAddress`= '{$_POST['Local_Address']}' WHERE `Patient_Id` = '{$_SESSION['pid']}' AND `Dependent`='{$_SESSION['dependent']}'";
+						if($conn->query($sql) == TRUE) {
+							?><script> alert("successfully updated"); 
+							window.location.assign("../features/modify_patient.php");
+							</script><?php
+						}
+						else {
+							?><script> alert("Could not update.."); </script><?php
+						}
+					}
+				}
+			}
+			else if(mysqli_num_rows($query)==1) {
+				$sql="UPDATE `patient` SET `Name`= '{$_POST['Name']}' , `Dependent`= '{$_POST['Dependent']}', `Sex`= '{$_POST['Sex']}', `Age`= '{$_POST['Age']}', `Ph.No`= '{$_POST['Ph_No']}', `Alt.Ph.No`= '{$_POST['AltPh_No']}', `DOB`= '{$date}', `PermanentAddress`= '{$_POST['Permanent_Address']}' , `LocalAddress`= '{$_POST['Local_Address']}' WHERE `Patient_Id` = '{$_SESSION['pid']}' AND `Name`='{$_SESSION['name']}' AND `Dependent`='{$_SESSION['dependent']}'";
+				if($conn->query($sql) == FALSE) {
+					?><script> alert("Could not update.."); </script><?php
+				}
+				else {
+					?><script> alert("successfully updated"); 
+					window.location.assign("../features/modify_patient.php");
+					</script><?php
+				}
+			}
+			else {
+				?><script> alert("Could not update.."); </script><?php
+			}
 		}
 		else {
-			?><script> alert("Not updated"); </script><?php
+			?><script> alert("Could not update.."); </script><?php
 		}
 	}
 ?>	
 
 <form action="" method="post">
-	Patient ID: <input name="Patient_Id" type="text" id="Patient_Id" class ="input_class_med" >
+	Patient ID: <input name="Patient_Id" type="text" id="Patient_Id" class ="input_class_med" readonly >
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     Name: <input name="Name" type="text" id="Name" class ="input_class_med"><br>
     Dependent: <input name="Dependent" type="text" id="Dependent" class ="input_class_med" >&nbsp;&nbsp;&nbsp;&nbsp;

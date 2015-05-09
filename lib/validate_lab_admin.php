@@ -90,13 +90,13 @@ if (isset($_POST['submit']))
 		$count=mysqli_num_rows($result);
 		if ($count < 1)
 		{
-			$sql="INSERT INTO users VALUES ('$myname', '$myusername', '$mynewpw', '$mysec1', '$myans1', '$mysec2', '$myans2', 'Doctor');"  ;
+			$sql="INSERT INTO users VALUES ('$myname', '$myusername', '$mynewpw', '$mysec1', '$myans1', '$mysec2', '$myans2', 'labadmin');"  ;
 			$result=mysqli_query($conn, $sql);
 			$msg = "Success";
 		}
 		else 
 		{
-			$msg = "Doctor already exists";
+			$msg = "Lab admin already exists";
 		}
 	}
 	else	
@@ -104,6 +104,6 @@ if (isset($_POST['submit']))
 		$msg = "Incorrect Password";
 	}
 }
-else $msg= "Please go to Add Doctor to add a new doctor";
-	header("location: ../features/add_doctor.php?q='$msg'");
+else $msg= "Please go to Add lab admin to add a new doctor";
+	header("location: ../features/add_lab_admin.php?q='$msg'");
 ?>

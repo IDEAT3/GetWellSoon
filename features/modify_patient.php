@@ -51,7 +51,7 @@ Modify Patient Details :-
     Age: <input name="Age" type="text" class ="input_class_small" readonly><br>
 	Ph. No: <input name="Ph_No" type="text" class ="input_class_med" autocomplete="on" readonly>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    DOB: <input name="DOB" id="datepicker" type="text" class ="input_class_med" autocomplete="on" readonly><br>    
+    DOB: <input name="DOB" type="text" class ="input_class_med" autocomplete="on" readonly><br>    
     Alt. Ph. No: <input name="AltPh_No" type="text" class ="input_class_med" autocomplete="on" readonly><br>
     
 	Permanent Address: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,7 +62,6 @@ Modify Patient Details :-
     <textarea id="Permadd" name="Permanent_Address" cols="23" rows="4" readonly></textarea>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" class="button" value="Same" onClick="document.getElementById('locadd').value = document.getElementById('Permadd').value">
     <textarea id="locadd" name="Local_Address" cols="27" rows="4" readonly></textarea><br>
 	</label>
     <input type="submit" name="submit" value="Update" >

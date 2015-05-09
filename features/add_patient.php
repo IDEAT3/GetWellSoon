@@ -14,6 +14,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <title>Add Patient Record</title>
 <link href="../css/add_patient.css" rel="stylesheet" type="text/css">
 
@@ -35,16 +36,46 @@ $(function() {
 	
 <?php   
 	if (isset($_POST['submit'])) {
-		$date=date("Y-m-d", strtotime($_POST['DOB']));
-		$sql="INSERT INTO `health_centre`.`patient` (`Patient_Id`, `Name`, `Dependent`, `Sex`, `Age`, `Ph.No`, `Alt.Ph.No`, `DOB`, `PermanentAddress`, `LocalAddress`) VALUES ('{$_POST['Patient_Id']}', '{$_POST['Name']}', '{$_POST['Dependent']}', '{$_POST['Sex']}','{$_POST['Age']}', '{$_POST['Ph_No']}', '{$_POST['Altph_No']}', '{$date}', '{$_POST['Permanent_Address']}', '{$_POST['Local_Address']}');";
-		$query=mysqli_query($conn,$sql);
-		if(!$query) {?>
-			<script>alert("Patient was not added!! <?php echo $sql; ?>");</script>
-			<?php
+		$pid=$_POST['Patient_Id'];
+		if($pid == "") {echo '<script>alert("You must enter a Patient ID.");window.location.assign("./add_patient.php");</script>';}
+		else {
+		if($_POST['Name'] == "") {echo '<script>alert("You must enter a Patient Name.");window.location.assign("./add_patient.php");</script>';}
+		else {
+		$sql="SELECT Name FROM patient WHERE Patient_Id = '$pid';";
+		$query=mysqli_query($conn, $sql);
+		if($query) {
+			$row=mysqli_fetch_array($query);
+			$name=$row['Name'];
+			if($name!=NULL && $_POST['Name']!= $name) {
+				echo '<script>alert("Patient with same id and different name exists.");</script>';
+			}
+			else {
+			$date=date("Y-m-d", strtotime($_POST['DOB']));
+			$pid=$_POST['Patient_Id'];
+			$name=$_POST['Name'];
+			$dep=$_POST['Dependent'];
+			$sex=$_POST['Sex'];
+			$age=$_POST['Age'];
+			$ph=$_POST['Ph_No'];
+			$aph=$_POST['AltPh_No'];
+			$pad=$_POST['PermanentAddress'];
+			$lad=$_POST['LocalAddress'];
+			$sql="INSERT INTO patient VALUES ('$pid', '$name', '$dep', '$sex','$age', '$ph', '$aph', '$date', '$pad', '$lad');";
+			$query=mysqli_query($conn,$sql);
+			if(!$query) {?>
+				<script>alert("Patient was not added!!");</script>
+				<?php
+			}
+			else {?>
+				<script>alert("Successfully added patient!!");</script>
+				<?php
+			}
+			}
 		}
-		else {?>
-			<script>alert("Successfully added patient!!");</script>
-			<?php
+		else {
+			echo '<script>alert("Patient could not be added.");</script>';
+		}
+		}
 		}
 	}
 ?>	
@@ -71,11 +102,11 @@ Add Patient Details :-
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     Local Address: <br>
-    <textarea id="Permadd" name="Permanent_Address" cols="37" rows="13"></textarea>
+    <textarea id="Permadd" name="PermanentAddress" cols="37" rows="13"></textarea>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;
     <input type="button" class="button" value="Same" onClick="document.getElementById('locadd').value = document.getElementById('Permadd').value">
-    <textarea id="locadd" name="Local_Address" cols="37" rows="13"></textarea><br>
+    <textarea id="locadd" name="LocalAddress" cols="37" rows="13"></textarea><br>
     <input type="submit" name="submit" value="Confirm" >
 </form>
 </div>

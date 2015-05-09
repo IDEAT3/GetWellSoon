@@ -28,7 +28,8 @@ $name = "Dr. ".$row["Name"]
 <html>
 <head>
 <meta charset="utf-8">
-<title><?php echo $login_session; ?> Home Page</title>
+<link rel="icon" href="images/cross.png" type="image/gif" sizes="16x16"> 
+<title><?php echo $_SESSION['login_user']; ?> Home Page</title>
 <link href="css/doctor_home.css" rel="stylesheet" type="text/css">
 </head>
 

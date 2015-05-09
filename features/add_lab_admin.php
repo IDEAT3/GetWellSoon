@@ -20,8 +20,7 @@ else
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
-<title>Add doctor</title>
+<title>Add Lab Admin</title>
 <link href="../css/update_profile.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
@@ -29,7 +28,7 @@ else
 	{
 		if (form.username.value == "")
 		{
-			alert("You must enter a username to add a doctor");
+			alert("You must enter a username to add a lab admin");
 			form.username.focus();
 			window.scrollByLines(-8);
 			form.username.value = "";
@@ -38,7 +37,7 @@ else
 		}
 		if (form.new_pw.value == "")
 		{
-			alert("You must enter a doctor password to add a doctor");
+			alert("You must enter a doctor password to add a lab admin");
 			form.username.focus();
 			window.scrollByLines(-8);
 			form.username.value = "";
@@ -63,28 +62,28 @@ else
 		}
                 if (form.sec_qn_1.value == "")
 		{
-			alert("You must enter 2 security questions and answers to add a doctor");
+			alert("You must enter 2 security questions and answers to add a lab admin");
 			form.pw.focus();
 			window.scrollByLines(4);
 			return false;
 		}
 		if (form.sec_qn_2.value == "")
 		{
-			alert("You must 2 security questions and answers to add a doctor");
+			alert("You must 2 security questions and answers to add a lab admin");
 			form.pw.focus();
 			window.scrollByLines(4);
 			return false;
 		}
 		if (form.ans1.value == "")
 		{
-			alert("You must 2 security questions and answers to add a doctor");
+			alert("You must 2 security questions and answers to add a lab admin");
 			form.pw.focus();
 			window.scrollByLines(4);
 			return false;
 		}
 		if (form.ans2.value == "")
 		{
-			alert("You must 2 security questions and answers to add a doctor");
+			alert("You must 2 security questions and answers to add a lab admin");
 			form.pw.focus();
 			window.scrollByLines(4);
 			return false;
@@ -109,8 +108,8 @@ else
 <input type="button" class="home" value="" onClick="location.href='../home.php'">
 <input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 <div id="table1">
-	Add doctor
-	<form action="../lib/validate_doctor.php" method="post" name="fields" onsubmit="return validate(this);">
+	Add Lab Admin
+	<form action="../lib/validate_lab_admin.php" method="post" name="fields" onsubmit="return validate(this);">
 		<div class="input_area">
 			<span>Name : </span><input name="name" type="text" class ="input_class_med" autofocus> <br/>
 			<span>Qualification : </span><input name="qualification" type="text" class ="input_class_med"> <br/>
@@ -129,11 +128,11 @@ else
 			<span>Security Qn2 :</span><textarea name="sec_qn_2" cols="37" rows="13"></textarea><br/>
 			<span>Ans2 :</span><input name="ans2" type="password" class ="input_class_med"><br/><br/>
 
-			<span style="color:skyblue">Enter your password to add new doctor<sup style="color:red">*</sup> </span>
+			<span style="color:skyblue">Enter your password to add new lab admin<sup style="color:red">*</sup> </span>
 			<br/>
 			<input name="pw" type="password" class ="input_class_med" autocomplete='off'>
 		</div>
-		<input type="submit" name="submit" value="Add doctor">
+		<input type="submit" name="submit" value="Add Lab Admin">
 		<br/>
 		<br/>
 	</form>

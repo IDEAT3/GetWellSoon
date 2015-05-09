@@ -62,6 +62,7 @@ if (isset($_POST['reset_pw']))
 <head>
 <meta charset="utf-8">
 <title>Reset Password</title>
+<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <link href="../css/reset_password.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">

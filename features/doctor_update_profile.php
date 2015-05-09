@@ -1,9 +1,11 @@
 <?php
 include ('../lib/configure.php');
 session_start();
-if(isset($_SESSION['login_user'])){
-	if ($_SESSION['login_user']=="doctor") {
-		header("location: ../doctor_home.php");
+if(isset($_SESSION['login_type']))
+{
+	if ($_SESSION['login_type']=="admin") 
+	{
+		header("location: ../home.php");
 	}
 }
 else {
@@ -50,7 +52,35 @@ $row = mysqli_fetch_array($result);
 			form.pw.focus();
 			return false;
 		}
-		
+		{
+			alert("You must enter 2 security questions and answers to add a doctor");
+			form.pw.focus();
+			window.scrollByLines(4);
+			return false;
+		}
+		if (form.sec_qn_2.value == "")
+		{
+			alert("You must 2 security questions and answers to add a doctor");
+			form.pw.focus();
+			window.scrollByLines(4);
+			return false;
+		}
+		if (form.ans1.value == "")
+		{
+			alert("You must 2 security questions and answers to add a doctor");
+			form.pw.focus();
+			window.scrollByLines(4);
+			return false;
+		}
+		if (form.ans2.value == "")
+		{
+			alert("You must 2 security questions and answers to add a doctor");
+			form.pw.focus();
+			window.scrollByLines(4);
+			return false;
+		}
+
+
 		return true;
 	}
 	
@@ -70,7 +100,7 @@ $row = mysqli_fetch_array($result);
 <input type="button" class="logout" value="logout" onClick="location.href='../lib/logout.php'">
 <div id="table1">
 	Update Profile
-	<form action="update.php" method="post" name="fields" onsubmit="return validate(this);">
+	<form action="doctor_update.php" method="post" name="fields" onsubmit="return validate(this);">
 		<div class="input_area">
 			<span>Name : </span><input name="name" type="text" class ="input_class_med" autocomplete="on" value="<?php echo $row['Name']; ?>" autofocus onfocus="var val=this.value; this.value=''; this.value= val;"> <br/>
 			<span>Username : </span><input name="username" type="text" class ="input_class_med" autocomplete="on" value="<?php echo $row['UserName']; ?>"><br>

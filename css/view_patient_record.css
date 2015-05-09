@@ -141,9 +141,10 @@ html,body {
 #view_button
 {
 	position: absolute;
-	left:105%;
-	top:2px;
+	top:200px;
+	left:40%;
 	font-family: times;
+	width:200px;
 	font-size: 20px;
 }
 

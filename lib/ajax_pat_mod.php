@@ -25,7 +25,7 @@
 			$Name = $row['Name'];
 			$staff="";
 			if($row['Dependent']=="") {$staff="2!+!" . $Name . "!+!" .  $row['Sex'] . "!+!" . $row['Age'] . "!+!" . $row['Ph.No'] . "!+!" . $row['Alt.Ph.No'] . "!+!" . $row['DOB'] . "!+!" . $row['PermanentAddress'] . "!+!" . $row['LocalAddress'];}
-			else {$text="!+!" . $row['Dependent'];}
+			else {$text= "!+!" . $row['Dependent'];}
 			while($row = mysqli_fetch_array($query)) {
 				if($row['Dependent']=="") {$staff="2!+!" . $Name . "!+!" .  $row['Sex'] . "!+!" . $row['Age'] . "!+!" . $row['Ph.No'] . "!+!" . $row['Alt.Ph.No'] . "!+!" . $row['DOB'] . "!+!" . $row['PermanentAddress'] . "!+!" . $row['LocalAddress'];}
 				else {$text = $text . "!+!" . $row['Dependent'];}
@@ -33,6 +33,9 @@
 					$Name="";
 					break;
 				}
+			}
+			if($staff=="") {
+				$text="3!+!" . $Name . $text;
 			}
 			if($Name=="") {
 				$text="";

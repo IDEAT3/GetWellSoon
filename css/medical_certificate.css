@@ -1,4 +1,4 @@
-body {
+body,html {
 	background-image: url(../images/background.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -47,10 +47,10 @@ body {
 }
 #datatable1 {
 	position: absolute;
-	top: 333px;
+	top: 70%;
 	width:97%;
 	font-size:16px;
-	margin-left:15px;
+	margin-left:2%;
 }
 
 #datatable2 {
@@ -137,5 +137,49 @@ input[type="search"]
 	margin-bottom:10px;
 }
 
+#pdf_link
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 21px;
+	color:#0064FF;
+	line-height: 0.5;
+	text-align: left;
+	position: absolute;
+	left: 83%;
+	top: 20%;
+}
+
+#pdf_link:hover
+{
+	color:blue;
+}
+#pdf_link:active
+{
+	color:red;
+}
 
 
+
+#data input[type="text"] {
+	font-family: 'Open Sans', sans-serif;
+	color: #000;
+	height: 25px;
+	padding-left:0.5em;
+	outline: none;
+	border: initial;
+	border-radius: 5px;
+}
+
+#print_btn
+{
+	background-color: transparent;
+	text-decoration: underline;
+	border: none;
+	color: blue;
+	cursor: pointer;
+
+} 
+datatable1 delete : hover
+{
+  background-color: 
+}

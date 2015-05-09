@@ -6,6 +6,7 @@
 <?php
 
 include("lib/configure.php");
+session_start();
 if(isset($_SESSION['login_type'])){
 	if($_SESSION['login_type']=="admin") 
 	{
@@ -15,6 +16,10 @@ if(isset($_SESSION['login_type'])){
 	{
 		header("location: doctor_home.php");
 	}
+	else if($_SESSION['login_type']=="lab_admin")
+	{
+		header("location: lab_admin_home.php");
+	}	
 }
 
 $error="";
@@ -49,9 +54,13 @@ if(isset($_POST['submit'])) {
 		{
 			header("location: home.php");
 		}
-		else 
+		else if($_SESSION['login_type']=="Doctor")
 		{
 			header("location: doctor_home.php");
+		}
+		else 
+		{
+			header("location: lab_admin_home.php");
 		}		
 	}
 	else {
@@ -64,6 +73,7 @@ if(isset($_POST['submit'])) {
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="images/cross.png" type="image/gif" sizes="16x16"> 
 <title>NITC Health Centre</title>
 <link href="css/login.css" type="text/css" rel="stylesheet"/>
 <style type="text/css">

@@ -21,9 +21,10 @@ else {
 <head>
 <meta charset="utf-8">
 <title>Report</title>
+
 <!--CSS-->
 <link href="../css/report.css" rel="stylesheet" type="text/css"> 
-
+<link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <!-- Datepicker -->
 <link href="../jQueryAssets/datepicker/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
 <link href="../jQueryAssets/datepicker/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
@@ -84,8 +85,9 @@ Report :-
 </div>
 
 <div id="Stock_Values">
-	<span id="total_transactions">Total Transactions = 0></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<span id="total_value">Total Value = 0</span>
+	<span id="total_transactions">Total Transactions = 0></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<span id="total_value">Value Added = 0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<span id="total_rem">Value Removed = 0</span>
 </div>
 
 <div id="datatable3">
@@ -110,7 +112,8 @@ Report :-
 			$frm=date("Y-m-d", strtotime($_POST['from']));
 			$to=date("Y-m-d", strtotime($_POST['to']));
 			$result = mysqli_query($conn, "SELECT * from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to'));");
-			while($row = mysqli_fetch_array($result)) {
+			while($row = mysqli_fetch_array($result)) 
+			{
 				$count = $count+1;
 		?>
 		<tr>
@@ -131,12 +134,13 @@ Report :-
 			$result = mysqli_query($conn, "SELECT SUM(Cost) AS Total from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to') AND (Type='Addition'));");
 			$row = mysqli_fetch_array($result);
 			if ($row['Total']==NULL) $add = 0; else $add = $row['Total'];
-			//$result = mysqli_query($conn, "SELECT SUM(Cost) AS Total from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to') AND (Type='Removal'));");
-			//$row = mysqli_fetch_array($result);
-			//if ($row['Total']==NULL) $rem = 0; else $rem = $row['Total'];
+			$result = mysqli_query($conn, "SELECT SUM(Cost) AS Total from Transactions WHERE ((Transaction_Date >= '$frm') AND (Transaction_Date <= '$to') AND (Type='Removal'));");
+			$row = mysqli_fetch_array($result);
+			if ($row['Total']==NULL) $rem = 0; else $rem = $row['Total'];
 	    ?>
 	<script>
 		document.getElementById("total_value").innerHTML = "Value Added : <?php echo $add ?>";
+		document.getElementById("total_rem").innerHTML = "Value Removed : <?php echo $rem ?>";
 		document.getElementById("total_transactions").innerHTML = "No of Transactions : <?php echo $count ?>";
 	</script>
 	

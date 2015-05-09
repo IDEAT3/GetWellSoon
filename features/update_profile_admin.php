@@ -52,8 +52,8 @@ $row = mysqli_fetch_array($result);
 			alert("You must enter your current password to update changes");
 			form.pw.focus();
 			return false;
-		}
-		
+		} 
+
 		return true;
 	}
 	
