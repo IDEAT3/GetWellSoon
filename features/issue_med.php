@@ -14,7 +14,7 @@ else {
 <html>
 <head>
 <meta charset="utf-8">
-<title>Isuue Medicine</title>
+<title>Issue Medicine</title>
 <link href="../css/issue_med.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> -->
 <script src="../jQueryAssets/js/issuemed.js" ></script>

@@ -33,7 +33,7 @@ function unsett() {
 <html>
 <head>
 <meta charset="utf-8">
-<title>Isuue Medicine</title>
+<title>Issue Medicine</title>
 <link rel="icon" href="../images/cross.png" type="image/gif" sizes="16x16"> 
 <link href="../css/issue_med.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/record_tables.css" rel="stylesheet" type="text/css"> -->

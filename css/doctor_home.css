@@ -39,28 +39,29 @@ body {
 	
 }
 
-.update_prof{
-	background:-moz-linear-gradient(top,#262626 0%,#262626 100%);
-	background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#262626),color-stop(100%,#262626));
-	background:-webkit-linear-gradient(top,#262626 0%,#262626 100%);
-	background:-o-linear-gradient(top,#262626 0%,#262626 100%);
-	background:-ms-linear-gradient(top,#262626 0%,#262626 100%);
-	background:linear-gradient(top,#262626 0%,#262626 100%);
-	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#262626', endColorstr='#262626',GradientType=0);
-	padding:1px 5px;
-	color:#0f0;
-	font-family:'Helvetica Neue',sans-serif;
+.update_prof {
+	font-size: 20px;
+	background: #f00;
+	background: -moz-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f00),color-stop(100%,#4AA400));
+	background: -webkit-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: -o-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: -ms-linear-gradient(top,#f00 0%,#4AA400 100%);
+	background: linear-gradient(top,#f00 0%,#4AA400 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f00', endColorstr='#4AA400',GradientType=0);
+	padding: 1px 35px;
+	color: #fff;
+	font-family: 'Helvetica Neue',sans-serif;
+	border-radius: 2px;
 	font-size:20px;
-	width:220px;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border:1px solid #262626;
-	position: absolute;
-	top: 20%;
-	left: 80%;
+ 	width:220px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #459A00;
+	position:absolute;
+	top:23%;
+	left: 81%;
 }
-
 
 .logout {
 	background-image: url(../images/logout.jpg);
